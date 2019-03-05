@@ -1,6 +1,6 @@
 ﻿namespace OOP
 {
-    partial class Form1
+    partial class Main_Form
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -35,6 +35,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 437);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Лучший филиал";
             this.ResumeLayout(false);

@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ClientSize = new System.Drawing.Size(674, 437);
+            this.ClientSize = new System.Drawing.Size(614, 437);
             this.Name = "Form1";
             this.Text = "Лучший филиал";
             this.ResumeLayout(false);

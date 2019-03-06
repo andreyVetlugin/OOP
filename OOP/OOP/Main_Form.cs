@@ -21,6 +21,7 @@ namespace OOP
             first_dataGridView.Rows.Add("Бюджет", "0", "0", "0", "0", "0", "0");
             first_dataGridView.Rows.Add("ОПП, ЖКХ и др.", "0", "0", "0", "0", "0", "0");
             first_dataGridView.Rows.Add("Прочее", "0", "0", "0", "0", "0", "0");
+            //first_dataGridView.Rows[0].Cells[1].Value= "Промышленность";
         }
 
         private void button_recount_Click(object sender, EventArgs e)
@@ -35,6 +36,11 @@ namespace OOP
                     return;
                 first_dataGridView[3, i].Value = (double)first_param * 365 / second_param;
             }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

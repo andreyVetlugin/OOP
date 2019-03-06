@@ -41,8 +41,15 @@
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.third_dataGridView = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.first_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.second_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.third_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // first_dataGridView
@@ -58,7 +65,7 @@
             this.Column4});
             this.first_dataGridView.Location = new System.Drawing.Point(12, 32);
             this.first_dataGridView.Name = "first_dataGridView";
-            this.first_dataGridView.Size = new System.Drawing.Size(801, 133);
+            this.first_dataGridView.Size = new System.Drawing.Size(953, 133);
             this.first_dataGridView.TabIndex = 0;
             // 
             // Column1
@@ -90,7 +97,7 @@
             // button_recount
             // 
             this.button_recount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_recount.Location = new System.Drawing.Point(12, 280);
+            this.button_recount.Location = new System.Drawing.Point(12, 415);
             this.button_recount.Name = "button_recount";
             this.button_recount.Size = new System.Drawing.Size(120, 30);
             this.button_recount.TabIndex = 1;
@@ -111,7 +118,7 @@
             this.Column8});
             this.second_dataGridView.Location = new System.Drawing.Point(12, 207);
             this.second_dataGridView.Name = "second_dataGridView";
-            this.second_dataGridView.Size = new System.Drawing.Size(801, 45);
+            this.second_dataGridView.Size = new System.Drawing.Size(953, 45);
             this.second_dataGridView.TabIndex = 3;
             // 
             // Column5
@@ -160,12 +167,66 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Выполнение плана по погашению просроченной ДЗ:";
             // 
+            // third_dataGridView
+            // 
+            this.third_dataGridView.AllowUserToAddRows = false;
+            this.third_dataGridView.AllowUserToDeleteRows = false;
+            this.third_dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.third_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.third_dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column9,
+            this.Column10,
+            this.Column11,
+            this.Column12});
+            this.third_dataGridView.Location = new System.Drawing.Point(12, 296);
+            this.third_dataGridView.Name = "third_dataGridView";
+            this.third_dataGridView.Size = new System.Drawing.Size(953, 67);
+            this.third_dataGridView.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(12, 276);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(230, 17);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Выручка НВД на одного клиента:";
+            // 
+            // Column9
+            // 
+            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column9.HeaderText = "Лицо";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column10.HeaderText = "Выручка за год, руб.";
+            this.Column10.Name = "Column10";
+            // 
+            // Column11
+            // 
+            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column11.HeaderText = "Кол-во договоров, шт.";
+            this.Column11.Name = "Column11";
+            // 
+            // Column12
+            // 
+            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column12.HeaderText = "Выручка на одного клиента, руб.";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(867, 334);
+            this.ClientSize = new System.Drawing.Size(1017, 502);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.third_dataGridView);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.second_dataGridView);
@@ -178,6 +239,7 @@
             this.Text = "Лучший филиал";
             ((System.ComponentModel.ISupportInitialize)(this.first_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.second_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.third_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,6 +260,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridView third_dataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.Label label3;
     }
 }
 

@@ -22,6 +22,8 @@ namespace OOP
             first_dataGridView.Rows.Add("ОПП, ЖКХ и др.", "0", "0", "0");
             first_dataGridView.Rows.Add("Прочее", "0", "0", "0");
             second_dataGridView.Rows.Add("0", "0", "0", "0");
+            third_dataGridView.Rows.Add("Физическое", "0", "0", "0");
+            third_dataGridView.Rows.Add("Юридическое", "0", "0", "0");
         }
 
         private void button_recount_Click(object sender, EventArgs e)

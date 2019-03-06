@@ -47,9 +47,17 @@
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
+            this.fourth_dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.first_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.second_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.third_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fourth_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // first_dataGridView
@@ -97,7 +105,7 @@
             // button_recount
             // 
             this.button_recount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_recount.Location = new System.Drawing.Point(12, 415);
+            this.button_recount.Location = new System.Drawing.Point(12, 513);
             this.button_recount.Name = "button_recount";
             this.button_recount.Size = new System.Drawing.Size(120, 30);
             this.button_recount.TabIndex = 1;
@@ -219,12 +227,73 @@
             this.Column12.Name = "Column12";
             this.Column12.ReadOnly = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(12, 393);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(139, 17);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Качество биллинга:";
+            // 
+            // fourth_dataGridView
+            // 
+            this.fourth_dataGridView.AllowUserToAddRows = false;
+            this.fourth_dataGridView.AllowUserToDeleteRows = false;
+            this.fourth_dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.fourth_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.fourth_dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.Column13});
+            this.fourth_dataGridView.Location = new System.Drawing.Point(12, 413);
+            this.fourth_dataGridView.Name = "fourth_dataGridView";
+            this.fourth_dataGridView.Size = new System.Drawing.Size(953, 67);
+            this.fourth_dataGridView.TabIndex = 9;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Лицо";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Кол-во ошибок за год, шт.";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Кол-во ТУ, шт.";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Ккр";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // Column13
+            // 
+            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column13.HeaderText = "Качество биллинга, %";
+            this.Column13.Name = "Column13";
+            this.Column13.ReadOnly = true;
+            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1017, 502);
+            this.ClientSize = new System.Drawing.Size(1010, 584);
+            this.Controls.Add(this.fourth_dataGridView);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.third_dataGridView);
             this.Controls.Add(this.label2);
@@ -240,6 +309,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.first_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.second_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.third_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fourth_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -266,6 +336,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView fourth_dataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
     }
 }
 

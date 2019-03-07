@@ -23,11 +23,6 @@ namespace OOP
             tableManager = new TableManager(Tables);
         }
 
-        private void button_recount_Click(object sender, EventArgs e)
-        {
-            tableManager.FillTables();
-        }
-
         private void sendTables()// сюда пока не смотреть 
         {
             WebRequest request = WebRequest.Create("HERE SERVER");
@@ -36,6 +31,11 @@ namespace OOP
             // dataStream.Write();
             dataStream.Close();
             WebResponse response = request.GetResponse();
+        }
+
+        private void dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            tableManager.FillTable((DataGridView)sender);
         }
     }
 
@@ -69,11 +69,11 @@ namespace OOP
             Tables[4].Rows.Add("0", "0", "0", "0", "0");
         }
 
-        public void FillTables()
+        public void FillTable(DataGridView table)
         {
-            foreach (var filler in tablesFillers)
-                filler.Value(filler.Key);
+            tablesFillers[table](table);
         }
+        
         private List<TableFiller> getTableFillers()//!!! заменить все проверки данных на функцию
         {
             var tablesFillers = new List<TableFiller>();
@@ -156,5 +156,4 @@ namespace OOP
             return tablesFillers;
         }
     }
-    
 }

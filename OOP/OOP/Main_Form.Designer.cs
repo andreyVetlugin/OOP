@@ -33,7 +33,6 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button_recount = new System.Windows.Forms.Button();
             this.second_dataGridView = new System.Windows.Forms.DataGridView();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,6 +83,7 @@
             this.first_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.first_dataGridView.Size = new System.Drawing.Size(953, 133);
             this.first_dataGridView.TabIndex = 0;
+            this.first_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
             // 
             // Column1
             // 
@@ -111,17 +111,6 @@
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 
-            // button_recount
-            // 
-            this.button_recount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_recount.Location = new System.Drawing.Point(12, 639);
-            this.button_recount.Name = "button_recount";
-            this.button_recount.Size = new System.Drawing.Size(120, 30);
-            this.button_recount.TabIndex = 1;
-            this.button_recount.Text = "Пересчитать";
-            this.button_recount.UseVisualStyleBackColor = true;
-            this.button_recount.Click += new System.EventHandler(this.button_recount_Click);
-            // 
             // second_dataGridView
             // 
             this.second_dataGridView.AllowUserToAddRows = false;
@@ -138,6 +127,7 @@
             this.second_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.second_dataGridView.Size = new System.Drawing.Size(953, 45);
             this.second_dataGridView.TabIndex = 3;
+            this.second_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
             // 
             // Column5
             // 
@@ -201,6 +191,7 @@
             this.third_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.third_dataGridView.Size = new System.Drawing.Size(953, 67);
             this.third_dataGridView.TabIndex = 6;
+            this.third_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
             // 
             // Column9
             // 
@@ -265,6 +256,7 @@
             this.fourth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.fourth_dataGridView.Size = new System.Drawing.Size(953, 67);
             this.fourth_dataGridView.TabIndex = 9;
+            this.fourth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -328,6 +320,7 @@
             this.fifth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.fifth_dataGridView.Size = new System.Drawing.Size(953, 58);
             this.fifth_dataGridView.TabIndex = 11;
+            this.fifth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -367,7 +360,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1010, 742);
+            this.ClientSize = new System.Drawing.Size(1010, 631);
             this.Controls.Add(this.fifth_dataGridView);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.fourth_dataGridView);
@@ -378,7 +371,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.second_dataGridView);
             this.Controls.Add(this.first_dataGridView);
-            this.Controls.Add(this.button_recount);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Main_Form";
@@ -396,7 +389,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView first_dataGridView;
-        private System.Windows.Forms.Button button_recount;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;

@@ -4,35 +4,30 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 
-
 namespace OOP
 {
     public partial class Main_Form : Form
     {
+        private DataGridView[] Tables;
         private TableManager tableManager;
+
         public Main_Form()
         {
             InitializeComponent();
-            // вынести в отдельный метод в мэнеджере?
-            first_dataGridView.Rows.Add("Промышленность", "0", "0", "0");
-            first_dataGridView.Rows.Add("Население", "0", "0", "0");
-            first_dataGridView.Rows.Add("Бюджет", "0", "0", "0");
-            first_dataGridView.Rows.Add("ОПП, ЖКХ и др.", "0", "0", "0");
-            first_dataGridView.Rows.Add("Прочее", "0", "0", "0");
-            second_dataGridView.Rows.Add("0", "0", "0", "0");
-            third_dataGridView.Rows.Add("Физическое", "0", "0", "0");
-            third_dataGridView.Rows.Add("Юридическое", "0", "0", "0");
-            fourth_dataGridView.Rows.Add("Физическое", "0", "0", "0", "0");
-            fourth_dataGridView.Rows.Add("Юридическое", "0", "0", "0", "0");
 
-            tableManager = new TableManager(new List<DataGridView> {
-                first_dataGridView, second_dataGridView, third_dataGridView,fourth_dataGridView});
+            Tables = new DataGridView[] {
+                first_dataGridView, second_dataGridView, third_dataGridView,
+                fourth_dataGridView, fifth_dataGridView };
+
+            TableManager.InitializeTables(Tables);
+            tableManager = new TableManager(Tables);
         }
 
         private void button_recount_Click(object sender, EventArgs e)
         {
             tableManager.FillTables();
         }
+
         private void sendTables()// сюда пока не смотреть 
         {
             WebRequest request = WebRequest.Create("HERE SERVER");
@@ -43,6 +38,7 @@ namespace OOP
             WebResponse response = request.GetResponse();
         }
     }
+
     public class TableManager
     {
         private delegate void TableFiller(DataGridView table);
@@ -50,12 +46,29 @@ namespace OOP
         //private Dictionary<int, string> tablesNames;
         private Dictionary<DataGridView, TableFiller> tablesFillers = new Dictionary<DataGridView, TableFiller>();
         //хранить места ошибок, чтобы потом их вывести + имена для описания () передавать не лист а dict с именами-таблицами
-        public TableManager(List<DataGridView> tables)
+
+        public TableManager(DataGridView[] tables)
         {
             var numericTableFillers = getTableFillers();
-            for (var i = 0; i < tables.Count; i++)
+            for (int i = 0; i < tables.Length; i++)
                 tablesFillers[tables[i]] = numericTableFillers[i];
         }
+
+        public static void InitializeTables(DataGridView[] Tables)
+        {
+            Tables[0].Rows.Add("Промышленность", "0", "0", "0");
+            Tables[0].Rows.Add("Население", "0", "0", "0");
+            Tables[0].Rows.Add("Бюджет", "0", "0", "0");
+            Tables[0].Rows.Add("ОПП, ЖКХ и др.", "0", "0", "0");
+            Tables[0].Rows.Add("Прочее", "0", "0", "0");
+            Tables[1].Rows.Add("0", "0", "0", "0");
+            Tables[2].Rows.Add("Физическое", "0", "0", "0");
+            Tables[2].Rows.Add("Юридическое", "0", "0", "0");
+            Tables[3].Rows.Add("Физическое", "0", "0", "0", "0");
+            Tables[3].Rows.Add("Юридическое", "0", "0", "0", "0");
+            Tables[4].Rows.Add("0", "0", "0", "0", "0");
+        }
+
         public void FillTables()
         {
             foreach (var filler in tablesFillers)

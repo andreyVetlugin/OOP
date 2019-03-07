@@ -152,6 +152,7 @@ namespace OOP
                         currentTable[4, i].Value = (double)first_param / second_param * errorsCount;
                 }
             });
+            tablesFillers.Add((DataGridView currentTable) => { });
             return tablesFillers;
         }
     }

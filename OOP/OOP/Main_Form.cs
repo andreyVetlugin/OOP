@@ -17,7 +17,7 @@ namespace OOP
 
             Tables = new DataGridView[] {
                 first_dataGridView, second_dataGridView, third_dataGridView,
-                fourth_dataGridView, fifth_dataGridView };
+                fourth_dataGridView, fifth_dataGridView, sixth_dataGridView };
 
             TableManager.InitializeTables(Tables);
             tableManager = new TableManager(Tables);
@@ -61,9 +61,10 @@ namespace OOP
             Tables[1].Rows.Add("0", "0", "0", "0");
             Tables[2].Rows.Add("Физическое", "0", "0", "0");
             Tables[2].Rows.Add("Юридическое", "0", "0", "0");
-            Tables[3].Rows.Add("Физическое", "0", "0", "0", "0");
-            Tables[3].Rows.Add("Юридическое", "0", "0", "0", "0");
+            Tables[3].Rows.Add("Физическое", "0", "0", "1", "0");
+            Tables[3].Rows.Add("Юридическое", "0", "0", "1", "0");
             Tables[4].Rows.Add("0", "0", "0", "0", "0");
+            Tables[5].Rows.Add("0");
         }
 
         public void FillTable(DataGridView table)
@@ -110,46 +111,51 @@ namespace OOP
                     tables[1][3, 0].Value = 3;
                 else if ((double)tables[1][2, 0].Value >= 90)
                     tables[1][3, 0].Value = 2;
-                else tables[1][3, 0].Value = 1;
-
+                else
+                    tables[1][3, 0].Value = 1;
             };
 
             tablesFillers[2] = () =>
             {
                 int first_param, second_param;
-                for (var i = 0; i < 2; i++)
+                for (var i = 0; i < tables[2].Rows.Count; i++)
                 {
                     if (!int.TryParse(tables[2][1, i].Value.ToString(), out first_param))
-                        return;
+                        continue;
                     if (!int.TryParse(tables[2][2, i].Value.ToString(), out second_param))
-                        return;
+                        continue;
                     if (first_param <= 0 || second_param <= 0)
-                        return;
+                        continue;
                     tables[2][3, i].Value = (double)first_param / second_param;
                 }
             };
 
             tablesFillers[3] = () =>
             {                
-                int first_param, second_param,errorsCount;
-                for (var i = 0; i < 2; i++)
+                int first_param, second_param, errorsCount;
+                for (var i = 0; i < tables[3].Rows.Count; i++)
                 {
                     if (!int.TryParse(tables[3][1, i].Value.ToString(), out first_param))
-                        return;
+                        continue;
                     if (!int.TryParse(tables[3][2, i].Value.ToString(), out second_param))
-                        return;
+                        continue;
                     if (!int.TryParse(tables[3][3, i].Value.ToString(), out errorsCount))
-                        return;
+                        continue;
                     if (first_param <= 0 || second_param <= 0)
-                        return;
+                        continue;
                     if (errorsCount != 1)
                         tables[3][4, i].Value = 0;
                     else
                         tables[3][4, i].Value = (double)first_param / second_param * errorsCount;
                 }
+                tables[4][0, 0].Value = tables[3][2, 0].Value;
+                tables[4][1, 0].Value = tables[3][2, 1].Value;
+                FillTable(tables[4]);
             };
 
             tablesFillers[4] = () => { };
+
+            tablesFillers[5] = () => { };
             return tablesFillers;
         }
     }

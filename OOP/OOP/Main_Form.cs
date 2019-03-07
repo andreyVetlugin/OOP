@@ -1,15 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Net;
 using System.Windows.Forms;
+
 
 namespace OOP
 {
+    public partial class Main_Form : Form
+    {
+        private TableManager tableManager;
+        public Main_Form()
+        {
+            InitializeComponent();
+            // вынести в отдельный метод в мэнеджере?
+            first_dataGridView.Rows.Add("Промышленность", "0", "0", "0");
+            first_dataGridView.Rows.Add("Население", "0", "0", "0");
+            first_dataGridView.Rows.Add("Бюджет", "0", "0", "0");
+            first_dataGridView.Rows.Add("ОПП, ЖКХ и др.", "0", "0", "0");
+            first_dataGridView.Rows.Add("Прочее", "0", "0", "0");
+            second_dataGridView.Rows.Add("0", "0", "0", "0");
+            third_dataGridView.Rows.Add("Физическое", "0", "0", "0");
+            third_dataGridView.Rows.Add("Юридическое", "0", "0", "0");
+            fourth_dataGridView.Rows.Add("Физическое", "0", "0", "0", "0");
+            fourth_dataGridView.Rows.Add("Юридическое", "0", "0", "0", "0");
+
+            tableManager = new TableManager(new List<DataGridView> {
+                first_dataGridView, second_dataGridView, third_dataGridView,fourth_dataGridView});
+        }
+
+        private void button_recount_Click(object sender, EventArgs e)
+        {
+            tableManager.FillTables();
+        }
+        private void sendTables()// сюда пока не смотреть 
+        {
+            WebRequest request = WebRequest.Create("HERE SERVER");
+            request.Method = "POST";
+            Stream dataStream = request.GetRequestStream();
+            // dataStream.Write();
+            dataStream.Close();
+            WebResponse response = request.GetResponse();
+        }
+    }
     public class TableManager
     {
         private delegate void TableFiller(DataGridView table);
@@ -19,7 +52,7 @@ namespace OOP
         //хранить места ошибок, чтобы потом их вывести + имена для описания () передавать не лист а dict с именами-таблицами
         public TableManager(List<DataGridView> tables)
         {
-            var numericTableFillers = getNumericTableFillers();
+            var numericTableFillers = getTableFillers();
             for (var i = 0; i < tables.Count; i++)
                 tablesFillers[tables[i]] = numericTableFillers[i];
         }
@@ -28,7 +61,7 @@ namespace OOP
             foreach (var filler in tablesFillers)
                 filler.Value(filler.Key);
         }
-        private List<TableFiller> getNumericTableFillers()//!!! заменить все проверки данных на функцию
+        private List<TableFiller> getTableFillers()//!!! заменить все проверки данных на функцию
         {
             var tablesFillers = new List<TableFiller>();
             // МОжно ли расчитывать на порядок с add?
@@ -109,31 +142,5 @@ namespace OOP
             return tablesFillers;
         }
     }
-    public partial class Main_Form : Form
-    {
-        private TableManager tableManager;
-        public Main_Form()
-        {           
-            InitializeComponent();
-             // вынести в отдельный метод в мэнеджере?
-            first_dataGridView.Rows.Add("Промышленность", "0", "0", "0");
-            first_dataGridView.Rows.Add("Население", "0", "0", "0");
-            first_dataGridView.Rows.Add("Бюджет", "0", "0", "0");
-            first_dataGridView.Rows.Add("ОПП, ЖКХ и др.", "0", "0", "0");
-            first_dataGridView.Rows.Add("Прочее", "0", "0", "0");
-            second_dataGridView.Rows.Add("0", "0", "0", "0");
-            third_dataGridView.Rows.Add("Физическое", "0", "0", "0");
-            third_dataGridView.Rows.Add("Юридическое", "0", "0", "0");
-            fourth_dataGridView.Rows.Add("Физическое", "0", "0", "0", "0");
-            fourth_dataGridView.Rows.Add("Юридическое", "0", "0", "0", "0");
-
-            tableManager = new TableManager(new List<DataGridView> {
-                first_dataGridView, second_dataGridView, third_dataGridView,fourth_dataGridView});
-        }
-
-        private void button_recount_Click(object sender, EventArgs e)
-        {
-            tableManager.FillTables();            
-        }
-    }
+    
 }

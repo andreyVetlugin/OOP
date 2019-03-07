@@ -58,6 +58,19 @@ namespace OOP
                 if (first_param <= 0 || second_param <= 0)
                     return;
                 currentTable[2, 0].Value = (double)first_param / second_param * 100;
+
+                if ((double)currentTable[2, 0].Value >= 120)
+                    currentTable[3, 0].Value = 6;
+                else if ((double)currentTable[2, 0].Value >= 110)
+                    currentTable[3, 0].Value = 5;
+                else if ((double)currentTable[2, 0].Value >= 100)
+                    currentTable[3, 0].Value = 4;
+                else if ((double)currentTable[2, 0].Value >= 95)
+                    currentTable[3, 0].Value = 3;
+                else if ((double)currentTable[2, 0].Value >= 90)
+                    currentTable[3, 0].Value = 2;
+                else currentTable[3, 0].Value = 1;
+
             });
 
             tablesFillers.Add((DataGridView currentTable) =>
@@ -74,6 +87,25 @@ namespace OOP
                     currentTable[3, i].Value = (double)first_param / second_param;
                 }
             });
+            tablesFillers.Add((DataGridView currentTable) =>
+            {                
+                int first_param, second_param,errorsCount;
+                for (var i = 0; i < 2; i++)
+                {
+                    if (!int.TryParse(currentTable[1, i].Value.ToString(), out first_param))
+                        return;
+                    if (!int.TryParse(currentTable[2, i].Value.ToString(), out second_param))
+                        return;
+                    if (!int.TryParse(currentTable[3, i].Value.ToString(), out errorsCount))
+                        return;
+                    if (first_param <= 0 || second_param <= 0)
+                        return;
+                    if (errorsCount != 1)                    
+                        currentTable[4, i].Value = 0;
+                    else
+                        currentTable[4, i].Value = (double)first_param / second_param * errorsCount;
+                }
+            });
             return tablesFillers;
         }
     }
@@ -81,8 +113,7 @@ namespace OOP
     {
         private TableManager tableManager;
         public Main_Form()
-        {
-            // убрать балл в третьеь таблице
+        {           
             InitializeComponent();
              // вынести в отдельный метод в мэнеджере?
             first_dataGridView.Rows.Add("Промышленность", "0", "0", "0");
@@ -96,7 +127,8 @@ namespace OOP
             fourth_dataGridView.Rows.Add("Физическое", "0", "0", "0", "0");
             fourth_dataGridView.Rows.Add("Юридическое", "0", "0", "0", "0");
 
-            tableManager = new TableManager(new List<DataGridView> { first_dataGridView, second_dataGridView, third_dataGridView });
+            tableManager = new TableManager(new List<DataGridView> {
+                first_dataGridView, second_dataGridView, third_dataGridView,fourth_dataGridView});
         }
 
         private void button_recount_Click(object sender, EventArgs e)

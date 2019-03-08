@@ -63,12 +63,25 @@
             this.label6 = new System.Windows.Forms.Label();
             this.sixth_dataGridView = new System.Windows.Forms.DataGridView();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label7 = new System.Windows.Forms.Label();
+            this.seventh_dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label8 = new System.Windows.Forms.Label();
+            this.eighth_dataGridView = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.first_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.second_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.third_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fourth_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fifth_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sixth_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.seventh_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eighth_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // first_dataGridView
@@ -386,12 +399,118 @@
             this.Column14.HeaderText = "КПУ за 2-е полугодие";
             this.Column14.Name = "Column14";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(12, 731);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(346, 17);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Качество соблюдения нормативно-правовой базы:";
+            // 
+            // seventh_dataGridView
+            // 
+            this.seventh_dataGridView.AllowUserToAddRows = false;
+            this.seventh_dataGridView.AllowUserToDeleteRows = false;
+            this.seventh_dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.seventh_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.seventh_dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn10,
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn14});
+            this.seventh_dataGridView.Location = new System.Drawing.Point(12, 751);
+            this.seventh_dataGridView.Name = "seventh_dataGridView";
+            this.seventh_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.seventh_dataGridView.Size = new System.Drawing.Size(953, 45);
+            this.seventh_dataGridView.TabIndex = 15;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Кол-во замечаний";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn11.HeaderText = "Кол-во договоров физ. и юр. лиц";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn14.HeaderText = "Качество соблюдения НПД";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(12, 836);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(146, 17);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Безопасность труда:";
+            // 
+            // eighth_dataGridView
+            // 
+            this.eighth_dataGridView.AllowUserToAddRows = false;
+            this.eighth_dataGridView.AllowUserToDeleteRows = false;
+            this.eighth_dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.eighth_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.eighth_dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column15,
+            this.Column16,
+            this.Column17});
+            this.eighth_dataGridView.Location = new System.Drawing.Point(12, 856);
+            this.eighth_dataGridView.Name = "eighth_dataGridView";
+            this.eighth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.eighth_dataGridView.Size = new System.Drawing.Size(953, 67);
+            this.eighth_dataGridView.TabIndex = 17;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(15, 946);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(120, 30);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "Empty Button";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // Column15
+            // 
+            this.Column15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column15.HeaderText = "Кол-во нарушений";
+            this.Column15.Name = "Column15";
+            // 
+            // Column16
+            // 
+            this.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column16.HeaderText = "Кол-во сотрудников";
+            this.Column16.Name = "Column16";
+            // 
+            // Column17
+            // 
+            this.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column17.HeaderText = "Показатель";
+            this.Column17.Name = "Column17";
+            this.Column17.ReadOnly = true;
+            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1000, 722);
+            this.ClientSize = new System.Drawing.Size(1000, 815);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.eighth_dataGridView);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.seventh_dataGridView);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.sixth_dataGridView);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.fifth_dataGridView);
@@ -415,6 +534,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.fourth_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fifth_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sixth_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.seventh_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eighth_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -457,6 +578,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridView seventh_dataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DataGridView eighth_dataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -17,7 +17,8 @@ namespace OOP
 
             Tables = new DataGridView[] {
                 first_dataGridView, second_dataGridView, third_dataGridView,
-                fourth_dataGridView, fifth_dataGridView, sixth_dataGridView };
+                fourth_dataGridView, fifth_dataGridView, sixth_dataGridView,
+                seventh_dataGridView, eighth_dataGridView };
 
             TableManager.InitializeTables(Tables);
             tableManager = new TableManager(Tables);
@@ -65,6 +66,9 @@ namespace OOP
             Tables[3].Rows.Add("Юридическое", "0", "0", "1", "0");
             Tables[4].Rows.Add("0", "0", "0", "0", "0");
             Tables[5].Rows.Add("0");
+            Tables[6].Rows.Add("0", "0", "0");
+            Tables[7].Rows.Add("Инциденты", "0", "0", "0");
+            Tables[7].Rows.Add("Техника безопасности", "0", "0", "0");
         }
 
         public void FillTable(DataGridView table)
@@ -132,21 +136,21 @@ namespace OOP
 
             tablesFillers[3] = () =>
             {                
-                int first_param, second_param, errorsCount;
+                int first_param, second_param, third_param;
                 for (var i = 0; i < tables[3].Rows.Count; i++)
                 {
                     if (!int.TryParse(tables[3][1, i].Value.ToString(), out first_param))
                         continue;
                     if (!int.TryParse(tables[3][2, i].Value.ToString(), out second_param))
                         continue;
-                    if (!int.TryParse(tables[3][3, i].Value.ToString(), out errorsCount))
+                    if (!int.TryParse(tables[3][3, i].Value.ToString(), out third_param))
                         continue;
                     if (first_param <= 0 || second_param <= 0)
                         continue;
-                    if (errorsCount != 1)
+                    if (third_param != 1)
                         tables[3][4, i].Value = 0;
                     else
-                        tables[3][4, i].Value = (double)first_param / second_param * errorsCount;
+                        tables[3][4, i].Value = (double)first_param / second_param * third_param * 100;
                 }
                 tables[4][0, 0].Value = tables[3][2, 0].Value;
                 tables[4][1, 0].Value = tables[3][2, 1].Value;
@@ -160,12 +164,21 @@ namespace OOP
                     return;
                 if (!int.TryParse(tables[4][0, 0].Value.ToString(), out second_param))
                     return;
-                if (!int.TryParse(tables[4][3, 0].Value.ToString(), out third_param) || third_param <=0)
-                    return;                
-                tables[4][4, 0].Value = (first_param + second_param) / third_param;
+                if (!int.TryParse(tables[4][3, 0].Value.ToString(), out third_param))
+                    return;
+                if (third_param > 0)
+                    tables[4][4, 0].Value = (double)(first_param + second_param) / third_param;
+
+                tables[6][1, 0].Value = first_param + second_param;
+                FillTable(tables[6]);
             };
 
             tablesFillers[5] = () => { };
+
+            tablesFillers[6] = () => { };
+
+            tablesFillers[7] = () => { };
+
             return tablesFillers;
         }
     }

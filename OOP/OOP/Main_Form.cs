@@ -75,45 +75,60 @@ namespace OOP
         {
             tablesFillers[table]();
         }
-        
-        private TableFiller[] getTableFillers(DataGridView[] tables)
+
+        private bool tryParseCells(DataGridViewCell[] cells, out int[] tableParams)
         {
+            tableParams = new int[cells.Length];            
+            for (int i = 0; i < cells.Length; i++)
+            {
+                if (!int.TryParse(cells[i].Value.ToString(), out tableParams[i]) || tableParams[i] < 0) // нет проверки равенста с нгулем!(есть случаи, где 0 допустимо)
+                    return false;
+            }
+            return true;
+        }
+        private bool tryParseCells(DataGridViewCell[] cells, out double[] tableParams)
+        {
+            tableParams = new double[cells.Length];
+            for (int i = 0; i < cells.Length; i++)
+            {
+                if (!double.TryParse(cells[i].Value.ToString(), out tableParams[i]) || tableParams[i] < 0)// нет проверки равенста с нгулем!(есть случаи, где 0 допустимо)
+                    return false;
+            }
+            return true;
+        }        
+        private TableFiller[] getTableFillers(DataGridView[] tables)
+        {           
             TableFiller[] tablesFillers = new TableFiller[tables.Length];
             tablesFillers[0] = () =>
             {
-                int first_param, second_param;
+                double[] parameters;
+                DataGridViewCell[] cells;                
                 for (int i = 0; i < tables[0].Rows.Count; i++)
                 {
-                    if (!int.TryParse(tables[0][1, i].Value.ToString(), out first_param))
-                        continue;
-                    if (!int.TryParse(tables[0][2, i].Value.ToString(), out second_param))
-                        continue;
-                    if (first_param <= 0 || second_param <= 0)
-                        continue;
-                    tables[0][3, i].Value = (double)first_param * 365 / second_param;
+                    cells = new DataGridViewCell[]{ tables[0][1, i],tables[0][2, i]};
+                    if (!tryParseCells(cells,out parameters)||parameters[1]<=0)
+                        continue;                    
+                    tables[0][3, i].Value = parameters[0] * 365 / parameters[1];
                 }
             };
 
             tablesFillers[1] = () =>
             {
-                int first_param, second_param;
-                if (!int.TryParse(tables[1][0, 0].Value.ToString(), out first_param))
+                double[] parameters;
+                var cells= new DataGridViewCell[]{ tables[1][0, 0] , tables[1][1, 0] };
+                if(!tryParseCells(cells,out parameters)|| parameters[1] <= 0)
                     return;
-                if (!int.TryParse(tables[1][1, 0].Value.ToString(), out second_param))
-                    return;
-                if (first_param <= 0 || second_param <= 0)
-                    return;
-                tables[1][2, 0].Value = (double)first_param / second_param * 100;
-
-                if ((double)tables[1][2, 0].Value >= 120)
+                tables[1][2, 0].Value = parameters[0] / parameters[1]* 100;
+                var cellValue = (double)tables[1][2, 0].Value;
+                if (cellValue >= 120)
                     tables[1][3, 0].Value = 6;
-                else if ((double)tables[1][2, 0].Value >= 110)
+                else if (cellValue >= 110)
                     tables[1][3, 0].Value = 5;
-                else if ((double)tables[1][2, 0].Value >= 100)
+                else if (cellValue >= 100)
                     tables[1][3, 0].Value = 4;
-                else if ((double)tables[1][2, 0].Value >= 95)
+                else if (cellValue >= 95)
                     tables[1][3, 0].Value = 3;
-                else if ((double)tables[1][2, 0].Value >= 90)
+                else if (cellValue >= 90)
                     tables[1][3, 0].Value = 2;
                 else
                     tables[1][3, 0].Value = 1;
@@ -121,36 +136,27 @@ namespace OOP
 
             tablesFillers[2] = () =>
             {
-                int first_param, second_param;
+                int[] parameters;
+                DataGridViewCell[] cells;
                 for (var i = 0; i < tables[2].Rows.Count; i++)
                 {
-                    if (!int.TryParse(tables[2][1, i].Value.ToString(), out first_param))
+                    cells = new DataGridViewCell[] {tables[2][1, i], tables[2][2, i]};
+                    if (!tryParseCells(cells, out parameters)|| parameters[1] <= 0)
                         continue;
-                    if (!int.TryParse(tables[2][2, i].Value.ToString(), out second_param))
-                        continue;
-                    if (first_param <= 0 || second_param <= 0)
-                        continue;
-                    tables[2][3, i].Value = (double)first_param / second_param;
+                    tables[2][3, i].Value = (double)parameters[0] / parameters[1];
                 }
             };
 
             tablesFillers[3] = () =>
-            {                
-                int first_param, second_param, third_param;
+            {
+                int[] parameters;
+                DataGridViewCell[] cells;                
                 for (var i = 0; i < tables[3].Rows.Count; i++)
                 {
-                    if (!int.TryParse(tables[3][1, i].Value.ToString(), out first_param))
-                        continue;
-                    if (!int.TryParse(tables[3][2, i].Value.ToString(), out second_param))
-                        continue;
-                    if (!int.TryParse(tables[3][3, i].Value.ToString(), out third_param))
-                        continue;
-                    if (first_param <= 0 || second_param <= 0)
-                        continue;
-                    if (third_param != 1)
-                        tables[3][4, i].Value = 0;
-                    else
-                        tables[3][4, i].Value = (double)first_param / second_param * third_param * 100;
+                    cells = new DataGridViewCell[] { tables[3][1, i], tables[3][2, i], tables[3][3, i] };
+                    if (!tryParseCells(cells, out parameters) || parameters[1]<=0)
+                        continue;                                            
+                    tables[3][4, i].Value = (double)parameters[0] / parameters[1]* parameters[2] * 100;
                 }
                 tables[4][0, 0].Value = tables[3][2, 0].Value;
                 tables[4][1, 0].Value = tables[3][2, 1].Value;
@@ -159,17 +165,13 @@ namespace OOP
 
             tablesFillers[4] = () => 
             {
-                int first_param, second_param, third_param;
-                if (!int.TryParse(tables[4][1, 0].Value.ToString(), out first_param))
+                int[] parameters;
+                DataGridViewCell[] cells = new DataGridViewCell[] { tables[4][1, 0], tables[4][0, 0], tables[4][3, 0] };
+                if (!tryParseCells(cells, out parameters))
                     return;
-                if (!int.TryParse(tables[4][0, 0].Value.ToString(), out second_param))
-                    return;
-                if (!int.TryParse(tables[4][3, 0].Value.ToString(), out third_param))
-                    return;
-                if (third_param > 0)
-                    tables[4][4, 0].Value = (double)(first_param + second_param) / third_param;
-
-                tables[6][1, 0].Value = first_param + second_param;
+                if (parameters[2]> 0)
+                    tables[4][4, 0].Value = (double)(parameters[0] + parameters[1]) / parameters[2];
+                tables[6][1, 0].Value = parameters[0]+ parameters[1];
                 FillTable(tables[6]);
             };
 

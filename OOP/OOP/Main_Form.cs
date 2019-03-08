@@ -153,7 +153,17 @@ namespace OOP
                 FillTable(tables[4]);
             };
 
-            tablesFillers[4] = () => { };
+            tablesFillers[4] = () => 
+            {
+                int first_param, second_param, third_param;
+                if (!int.TryParse(tables[4][1, 0].Value.ToString(), out first_param))
+                    return;
+                if (!int.TryParse(tables[4][0, 0].Value.ToString(), out second_param))
+                    return;
+                if (!int.TryParse(tables[4][3, 0].Value.ToString(), out third_param) || third_param <=0)
+                    return;                
+                tables[4][4, 0].Value = (first_param + second_param) / third_param;
+            };
 
             tablesFillers[5] = () => { };
             return tablesFillers;

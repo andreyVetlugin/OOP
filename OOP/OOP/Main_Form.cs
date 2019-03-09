@@ -12,11 +12,11 @@ namespace OOP
     {
         const string tables_data_path = "tables.dat";
         const string info_ini_path = "info.ini";
-        const string _ip = "127.0.0.1";
-        const int _port = 3123;
+        const string default_ip = "127.0.0.1";
+        const int default_port = 3123;
+
         private TableManager tableManager;
         private IPEndPoint address;
-        private UdpClient client = new UdpClient();
         private DataGridView[] Tables;
 
         public Main_Form()
@@ -41,7 +41,7 @@ namespace OOP
         private void Save_send_button_Click(object sender, EventArgs e)
         {
             TableManager.Serialize(Tables, tables_data_path);
-            if (!SendOnServer(tables_data_path, 14))
+            if (!SendOnServer(address, tables_data_path, 14))
             {
                 MessageBox.Show(this, "Не удалось отправить данные на сервер\n\rПопробуйте позже",
                     "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -51,31 +51,34 @@ namespace OOP
         private void Main_Form_Load(object sender, EventArgs e)
         {
             TableManager.Deserialize(Tables, tables_data_path);
-            ParseIp(info_ini_path);
+            address = ParseIp(info_ini_path);
         }
-
-        //Чтение IP и Port из файла
-        private void ParseIp(string file_path)
+        
+        private IPEndPoint ParseIp(string file_path)
         {
-            address = new IPEndPoint(IPAddress.Parse(_ip), _port);
+            IPEndPoint default_address = new IPEndPoint(IPAddress.Parse(default_ip), default_port);
             if (!File.Exists(file_path))
             {
-                File.WriteAllText(file_path, _ip + ":" + _port.ToString());
-                return;
+                File.WriteAllText(file_path, default_ip + ":" + default_port.ToString());
+                return default_address;
             }
             string[] ip_port = File.ReadAllText(file_path).Split(':');
 
             if (IPAddress.TryParse(ip_port[0], out IPAddress ip) && int.TryParse(ip_port[1], out int port))
-                address = new IPEndPoint(ip, port);
+                return new IPEndPoint(ip, port);
+            return default_address;
         }
 
-        private bool SendOnServer(string file_path, int filiation_id)
+        private bool SendOnServer(IPEndPoint address, string file_path, int filiation_id)
         {
-            byte[] file = File.ReadAllBytes(file_path);
-            byte[] id = BitConverter.GetBytes(filiation_id);
-            client.Send(id, id.Length, address);
-            int bytes_sent = client.Send(file, file.Length, address);
-            return bytes_sent == file.Length;
+            using (UdpClient client = new UdpClient())
+            {
+                byte[] file = File.ReadAllBytes(file_path);
+                byte[] id = BitConverter.GetBytes(filiation_id);
+                client.Send(id, id.Length, address);
+                int bytes_sent = client.Send(file, file.Length, address);
+                return bytes_sent == file.Length;
+            }
         }
     }
 

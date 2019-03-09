@@ -13,7 +13,7 @@ namespace OOP
         const string _ip = "127.0.0.1";
         const int _port = 3123;
         private TableManager tableManager;
-        private IPEndPoint address = new IPEndPoint(IPAddress.Parse(_ip), _port);
+        private IPEndPoint address;
         private UdpClient client = new UdpClient();
         private DataGridView[] Tables;
 
@@ -38,8 +38,20 @@ namespace OOP
 
         private void Save_send_button_Click(object sender, EventArgs e)
         {
-            //TableManager.Serialize(Tables, "tables.dat");
+            TableManager.Serialize(Tables, "tables.dat");
+
+        }
+
+        private void Main_Form_Load(object sender, EventArgs e)
+        {
             TableManager.Deserialize(Tables, "tables.dat");
+            ParseIp("info.ini");
+        }
+
+        private void ParseIp(string file_path)
+        {
+            //Parse file for ip and port
+            address = new IPEndPoint(IPAddress.Parse(_ip), _port);
         }
     }
 

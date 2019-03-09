@@ -70,6 +70,10 @@
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label8 = new System.Windows.Forms.Label();
             this.eighth_dataGridView = new System.Windows.Forms.DataGridView();
+            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.save_send_button = new System.Windows.Forms.Button();
             this.ninth_dataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,10 +84,6 @@
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.first_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.second_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.third_dataGridView)).BeginInit();
@@ -487,10 +487,36 @@
             this.eighth_dataGridView.TabIndex = 17;
             this.eighth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
+            // Column18
+            // 
+            this.Column18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Column18.HeaderText = "Тип нарушения";
+            this.Column18.Name = "Column18";
+            this.Column18.ReadOnly = true;
+            // 
+            // Column15
+            // 
+            this.Column15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column15.HeaderText = "Кол-во нарушений";
+            this.Column15.Name = "Column15";
+            // 
+            // Column16
+            // 
+            this.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column16.HeaderText = "Кол-во сотрудников(всего/подлежащие проверке)";
+            this.Column16.Name = "Column16";
+            // 
+            // Column17
+            // 
+            this.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column17.HeaderText = "Показатель";
+            this.Column17.Name = "Column17";
+            this.Column17.ReadOnly = true;
+            // 
             // save_send_button
             // 
             this.save_send_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.save_send_button.Location = new System.Drawing.Point(15, 1164);
+            this.save_send_button.Location = new System.Drawing.Point(15, 1152);
             this.save_send_button.Name = "save_send_button";
             this.save_send_button.Size = new System.Drawing.Size(177, 30);
             this.save_send_button.TabIndex = 18;
@@ -580,32 +606,6 @@
             this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
             this.dataGridViewTextBoxColumn20.ReadOnly = true;
             // 
-            // Column18
-            // 
-            this.Column18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Column18.HeaderText = "Тип нарушения";
-            this.Column18.Name = "Column18";
-            this.Column18.ReadOnly = true;
-            // 
-            // Column15
-            // 
-            this.Column15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column15.HeaderText = "Кол-во нарушений";
-            this.Column15.Name = "Column15";
-            // 
-            // Column16
-            // 
-            this.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column16.HeaderText = "Кол-во сотрудников(всего/подлежащие проверке)";
-            this.Column16.Name = "Column16";
-            // 
-            // Column17
-            // 
-            this.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column17.HeaderText = "Показатель";
-            this.Column17.Name = "Column17";
-            this.Column17.ReadOnly = true;
-            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -637,6 +637,7 @@
             this.MinimizeBox = false;
             this.Name = "Main_Form";
             this.Text = "Лучший филиал";
+            this.Load += new System.EventHandler(this.Main_Form_Load);
             ((System.ComponentModel.ISupportInitialize)(this.first_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.second_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.third_dataGridView)).EndInit();

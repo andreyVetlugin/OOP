@@ -74,7 +74,7 @@
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
+            this.save_send_button = new System.Windows.Forms.Button();
             this.ninth_dataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -513,15 +513,16 @@
             this.Column17.Name = "Column17";
             this.Column17.ReadOnly = true;
             // 
-            // button1
+            // save_send_button
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(15, 1176);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 30);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Empty Button";
-            this.button1.UseVisualStyleBackColor = true;
+            this.save_send_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.save_send_button.Location = new System.Drawing.Point(15, 1164);
+            this.save_send_button.Name = "save_send_button";
+            this.save_send_button.Size = new System.Drawing.Size(177, 30);
+            this.save_send_button.TabIndex = 18;
+            this.save_send_button.Text = "Сохранить и отправить";
+            this.save_send_button.UseVisualStyleBackColor = true;
+            this.save_send_button.Click += new System.EventHandler(this.Save_send_button_Click);
             // 
             // ninth_dataGridView
             // 
@@ -610,11 +611,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1000, 750);
+            this.ClientSize = new System.Drawing.Size(1000, 723);
             this.Controls.Add(this.tenth_dataGridView);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.ninth_dataGridView);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.save_send_button);
             this.Controls.Add(this.eighth_dataGridView);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.seventh_dataGridView);
@@ -695,7 +696,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView eighth_dataGridView;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button save_send_button;
         private System.Windows.Forms.DataGridView ninth_dataGridView;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;

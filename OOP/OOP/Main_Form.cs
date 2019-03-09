@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Text;
 
 namespace OOP
 {
     public partial class Main_Form : Form
     {
         private TableManager tableManager;
+        private IPEndPoint address = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7788);
+        private UdpClient client = new UdpClient();
 
         public Main_Form()
         {
@@ -38,6 +42,11 @@ namespace OOP
         private void DataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             tableManager.FillTable((DataGridView)sender);
+        }
+
+        private void Save_send_button_Click(object sender, EventArgs e)
+        {
+            client.Send(Encoding.ASCII.GetBytes("LALALA"), 6, address);
         }
     }
 
@@ -89,6 +98,7 @@ namespace OOP
             }
             return true;
         }
+
         private bool TryParseCells(DataGridViewCell[] cells, out double[] tableParams)
         {
             tableParams = new double[cells.Length];

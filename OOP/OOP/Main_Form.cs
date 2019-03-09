@@ -54,6 +54,7 @@ namespace OOP
             ParseIp(info_ini_path);
         }
 
+        //Чтение IP и Port из файла
         private void ParseIp(string file_path)
         {
             address = new IPEndPoint(IPAddress.Parse(_ip), _port);

@@ -26,7 +26,7 @@ namespace OOP
 
         private void sendTables()// сюда пока не смотреть 
         {
-            WebRequest request = WebRequest.Create("HERE SERVER");
+            WebRequest request = WebRequest.Create("");
             request.Method = "POST";
             Stream dataStream = request.GetRequestStream();
             // dataStream.Write();
@@ -38,6 +38,7 @@ namespace OOP
         {
             tableManager.FillTable((DataGridView)sender);
         }
+        
     }
 
     public class TableManager
@@ -136,7 +137,7 @@ namespace OOP
 
             tablesFillers[2] = () =>
             {
-                int documentsSumm=0;
+                int documentsCount=0;
                 int[] parameters;
                 DataGridViewCell[] cells;
                 for (var i = 0; i < tables[2].Rows.Count; i++)
@@ -145,9 +146,9 @@ namespace OOP
                     if (!tryParseCells(cells, out parameters)|| parameters[1] <= 0)
                         continue;
                     tables[2][3, i].Value = (double)parameters[0] / parameters[1];
-                    documentsSumm += parameters[1];
+                    documentsCount += parameters[1];
                 }
-                tables[6][1, 0].Value = documentsSumm;
+                tables[6][1, 0].Value = documentsCount;
                 FillTable(tables[6]);
             };
 

@@ -10,6 +10,8 @@ namespace OOP
 {
     public partial class Main_Form : Form
     {
+        const string tables_data_path = "tables.dat";
+        const string info_ini_path = "info.ini";
         const string _ip = "127.0.0.1";
         const int _port = 3123;
         private TableManager tableManager;
@@ -38,20 +40,33 @@ namespace OOP
 
         private void Save_send_button_Click(object sender, EventArgs e)
         {
-            TableManager.Serialize(Tables, "tables.dat");
-
+            TableManager.Serialize(Tables, tables_data_path);
+            if (!SendOnServer(tables_data_path, 14))
+            {
+                MessageBox.Show(this, "Не удалось отправить данные на сервер\n\rПопробуйте позже",
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Main_Form_Load(object sender, EventArgs e)
         {
-            TableManager.Deserialize(Tables, "tables.dat");
-            ParseIp("info.ini");
+            TableManager.Deserialize(Tables, tables_data_path);
+            ParseIp(info_ini_path);
         }
 
         private void ParseIp(string file_path)
         {
             //Parse file for ip and port
             address = new IPEndPoint(IPAddress.Parse(_ip), _port);
+        }
+
+        private bool SendOnServer(string file_path, int filiation_id)
+        {
+            byte[] file = File.ReadAllBytes(file_path);
+            byte[] id = BitConverter.GetBytes(filiation_id);
+            client.Send(id, id.Length, address);
+            int bytes_sent = client.Send(file, file.Length, address);
+            return bytes_sent == file.Length;
         }
     }
 

@@ -10,15 +10,17 @@ namespace OOP
 {
     public partial class Main_Form : Form
     {
+        const string _ip = "127.0.0.1";
+        const int _port = 3123;
         private TableManager tableManager;
-        private IPEndPoint address = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7788);
+        private IPEndPoint address = new IPEndPoint(IPAddress.Parse(_ip), _port);
         private UdpClient client = new UdpClient();
+        private DataGridView[] Tables;
 
         public Main_Form()
         {
             InitializeComponent();
 
-            DataGridView[] Tables;
             Tables = new DataGridView[] {
                 first_dataGridView, second_dataGridView, third_dataGridView,
                 fourth_dataGridView, fifth_dataGridView, sixth_dataGridView,
@@ -29,16 +31,6 @@ namespace OOP
             tableManager = new TableManager(Tables);
         }
 
-        //private void sendTables()// сюда пока не смотреть 
-        //{
-        //    WebRequest request = WebRequest.Create("");
-        //    request.Method = "POST";
-        //    Stream dataStream = request.GetRequestStream();
-        //    // dataStream.Write();
-        //    dataStream.Close();
-        //    WebResponse response = request.GetResponse();
-        //}
-
         private void DataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             tableManager.FillTable((DataGridView)sender);
@@ -46,7 +38,8 @@ namespace OOP
 
         private void Save_send_button_Click(object sender, EventArgs e)
         {
-            client.Send(Encoding.ASCII.GetBytes("LALALA"), 6, address);
+            //TableManager.Serialize(Tables, "tables.dat");
+            TableManager.Deserialize(Tables, "tables.dat");
         }
     }
 
@@ -83,6 +76,53 @@ namespace OOP
             Tables[9].Rows.Add("0", "0", "0");
         }
 
+        public static void Serialize(DataGridView[] Tables, string file_path)
+        {
+            using (FileStream file = File.Create(file_path))
+            {
+                for (int i = 0; i < Tables.Length; i++)
+                {
+                    for (int y = 0; y < Tables[i].RowCount; y++)
+                    {
+                        for (int x = 0; x < Tables[i].ColumnCount; x++)
+                        {
+                            byte[] buffer = Encoding.Unicode.GetBytes(Tables[i][x, y].Value.ToString());
+                            file.Write(buffer, 0, buffer.Length);
+                            file.WriteByte(0x02);
+                            file.WriteByte(0xA8);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void Deserialize(DataGridView[] Tables, string file_path)
+        {
+            if (!File.Exists(file_path))
+                return;
+            using (FileStream file = File.OpenRead(file_path))
+            {
+                for (int i = 0; i < Tables.Length; i++)
+                {
+                    for (int y = 0; y < Tables[i].RowCount; y++)
+                    {
+                        for (int x = 0; x < Tables[i].ColumnCount; x++)
+                        {
+                            List<byte> buffer = new List<byte>(byte.MaxValue);
+                            byte[] bytes = new byte[2];
+                            while (file.Read(bytes, 0, 2) == 2)
+                            {
+                                if (bytes[0] == 0x02 && bytes[1] == 0xA8)
+                                    break;
+                                buffer.AddRange(bytes);
+                            }
+                            Tables[i][x, y].Value = Encoding.Unicode.GetString(buffer.ToArray());
+                        }
+                    }
+                }
+            }
+        }
+
         public void FillTable(DataGridView table)
         {
             tablesFillers[table]();
@@ -115,7 +155,7 @@ namespace OOP
             tablesFillers[0] = () =>
             {
                 DataGridViewCell[] cells;
-                for (int i = 0; i < tables[0].Rows.Count; i++)
+                for (int i = 0; i < tables[0].RowCount; i++)
                 {
                     cells = new DataGridViewCell[] { tables[0][1, i], tables[0][2, i] };
                     if (!TryParseCells(cells, out double[] parameters) || parameters[1] <= 0)
@@ -149,7 +189,7 @@ namespace OOP
             {
                 int documentsCount = 0;
                 DataGridViewCell[] cells;
-                for (var i = 0; i < tables[2].Rows.Count; i++)
+                for (var i = 0; i < tables[2].RowCount; i++)
                 {
                     cells = new DataGridViewCell[] { tables[2][1, i], tables[2][2, i] };
                     if (!TryParseCells(cells, out int[] parameters) || parameters[1] <= 0)
@@ -164,7 +204,7 @@ namespace OOP
             tablesFillers[3] = () =>
             {
                 DataGridViewCell[] cells;
-                for (var i = 0; i < tables[3].Rows.Count; i++)
+                for (var i = 0; i < tables[3].RowCount; i++)
                 {
                     cells = new DataGridViewCell[] { tables[3][1, i], tables[3][2, i], tables[3][3, i] };
                     if (!TryParseCells(cells, out int[] parameters) || parameters[1] <= 0)

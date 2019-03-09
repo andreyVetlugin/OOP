@@ -142,7 +142,7 @@ namespace OOP
                 int documentsCount=0;
                 int[] parameters;
                 DataGridViewCell[] cells;
-                for (var i = 0; i < tables[2].Rows.Count; i++)
+                for (var i = 0; i < tables[2].Rows.Count-1; i++)
                 {
                     cells = new DataGridViewCell[] {tables[2][1, i], tables[2][2, i]};
                     if (!tryParseCells(cells, out parameters)|| parameters[1] <= 0)
@@ -158,7 +158,7 @@ namespace OOP
             {
                 int[] parameters;
                 DataGridViewCell[] cells;                
-                for (var i = 0; i < tables[3].Rows.Count; i++)
+                for (var i = 0; i < tables[3].Rows.Count-1; i++)
                 {
                     cells = new DataGridViewCell[] { tables[3][1, i], tables[3][2, i], tables[3][3, i] };
                     if (!tryParseCells(cells, out parameters) || parameters[1]<=0)
@@ -196,24 +196,33 @@ namespace OOP
             tablesFillers[7] = () => 
             {
                 int[] parameters;
-                for(int i = 0; i < tables[7].Rows.Count; i++)
+                for(int i = 0; i < tables[7].Rows.Count-1; i++)
                 {
                     var cells = new DataGridViewCell[] { tables[7][1, i], tables[7][2, i] };
                     if (!tryParseCells(cells, out parameters) || parameters[1] <= 0)
                         return;
                     tables[7][3, i].Value = (double)parameters[0] / parameters[1];
                 }
-                
+                tables[8][1,0].Value=tables[7][2, 0].Value;
+                FillTable(tables[8]);
             };
 
             tablesFillers[8] = () =>
             {
-
+                int[] parameters;
+                var cells = new DataGridViewCell[] { tables[8][0, 0], tables[8][1, 0] };
+                if (!tryParseCells(cells, out parameters) || parameters[1] <= 0)
+                        return;
+                tables[8][2, 0].Value = (double)parameters[0] / parameters[1] * 100;
             };
 
             tablesFillers[9] = () =>
             {
-
+                int[] parameters;
+                var cells = new DataGridViewCell[] { tables[9][0, 0], tables[9][1, 0] };
+                if (!tryParseCells(cells, out parameters) || parameters[1] <= 0)
+                    return;
+                tables[9][2, 0].Value = (double)parameters[0] / parameters[1] * 100;
             };
 
             return tablesFillers;

@@ -112,7 +112,7 @@
             this.first_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.first_dataGridView.Size = new System.Drawing.Size(953, 133);
             this.first_dataGridView.TabIndex = 0;
-            this.first_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.first_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // Column1
             // 
@@ -156,7 +156,7 @@
             this.second_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.second_dataGridView.Size = new System.Drawing.Size(953, 45);
             this.second_dataGridView.TabIndex = 3;
-            this.second_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.second_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // Column5
             // 
@@ -220,7 +220,7 @@
             this.third_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.third_dataGridView.Size = new System.Drawing.Size(953, 67);
             this.third_dataGridView.TabIndex = 6;
-            this.third_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.third_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // Column9
             // 
@@ -285,7 +285,7 @@
             this.fourth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.fourth_dataGridView.Size = new System.Drawing.Size(953, 67);
             this.fourth_dataGridView.TabIndex = 9;
-            this.fourth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.fourth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -346,7 +346,7 @@
             this.fifth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.fifth_dataGridView.Size = new System.Drawing.Size(953, 58);
             this.fifth_dataGridView.TabIndex = 11;
-            this.fifth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.fifth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -404,7 +404,7 @@
             this.sixth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.sixth_dataGridView.Size = new System.Drawing.Size(953, 45);
             this.sixth_dataGridView.TabIndex = 13;
-            this.sixth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.sixth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // Column14
             // 
@@ -437,7 +437,7 @@
             this.seventh_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.seventh_dataGridView.Size = new System.Drawing.Size(953, 45);
             this.seventh_dataGridView.TabIndex = 15;
-            this.seventh_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.seventh_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn10
             // 
@@ -485,7 +485,7 @@
             this.eighth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.eighth_dataGridView.Size = new System.Drawing.Size(953, 80);
             this.eighth_dataGridView.TabIndex = 17;
-            this.eighth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.eighth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // Column18
             // 
@@ -538,7 +538,7 @@
             this.ninth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.ninth_dataGridView.Size = new System.Drawing.Size(953, 45);
             this.ninth_dataGridView.TabIndex = 19;
-            this.ninth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.ninth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn13
             // 
@@ -584,7 +584,7 @@
             this.tenth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.tenth_dataGridView.Size = new System.Drawing.Size(953, 45);
             this.tenth_dataGridView.TabIndex = 21;
-            this.tenth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.tenth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn18
             // 

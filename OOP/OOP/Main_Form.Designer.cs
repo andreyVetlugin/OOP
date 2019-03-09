@@ -71,6 +71,15 @@
             this.label8 = new System.Windows.Forms.Label();
             this.eighth_dataGridView = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
+            this.ninth_dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tenth_dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,6 +92,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.sixth_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seventh_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eighth_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ninth_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tenth_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // first_dataGridView
@@ -479,12 +490,92 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(15, 946);
+            this.button1.Location = new System.Drawing.Point(15, 1176);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(120, 30);
             this.button1.TabIndex = 18;
             this.button1.Text = "Empty Button";
             this.button1.UseVisualStyleBackColor = true;
+            // 
+            // ninth_dataGridView
+            // 
+            this.ninth_dataGridView.AllowUserToAddRows = false;
+            this.ninth_dataGridView.AllowUserToDeleteRows = false;
+            this.ninth_dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.ninth_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ninth_dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn13,
+            this.dataGridViewTextBoxColumn15,
+            this.dataGridViewTextBoxColumn16});
+            this.ninth_dataGridView.Location = new System.Drawing.Point(12, 961);
+            this.ninth_dataGridView.Name = "ninth_dataGridView";
+            this.ninth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.ninth_dataGridView.Size = new System.Drawing.Size(953, 45);
+            this.ninth_dataGridView.TabIndex = 19;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn13.HeaderText = "Кол-во уволенных по собственному желанию";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn15.HeaderText = "Кол-во сотрудников";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn16.HeaderText = "Коэффицент текучести кадров";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            this.dataGridViewTextBoxColumn16.ReadOnly = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(9, 941);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(222, 17);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Качество работы с персоналом:";
+            // 
+            // tenth_dataGridView
+            // 
+            this.tenth_dataGridView.AllowUserToAddRows = false;
+            this.tenth_dataGridView.AllowUserToDeleteRows = false;
+            this.tenth_dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.tenth_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tenth_dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn18,
+            this.dataGridViewTextBoxColumn19,
+            this.dataGridViewTextBoxColumn20});
+            this.tenth_dataGridView.Location = new System.Drawing.Point(12, 1061);
+            this.tenth_dataGridView.Name = "tenth_dataGridView";
+            this.tenth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.tenth_dataGridView.Size = new System.Drawing.Size(953, 45);
+            this.tenth_dataGridView.TabIndex = 21;
+            // 
+            // dataGridViewTextBoxColumn18
+            // 
+            this.dataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn18.HeaderText = "Кол-во нуед. при проверке знаний";
+            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            // 
+            // dataGridViewTextBoxColumn19
+            // 
+            this.dataGridViewTextBoxColumn19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn19.HeaderText = "Кол-во проверяемых сотрудников";
+            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            // 
+            // dataGridViewTextBoxColumn20
+            // 
+            this.dataGridViewTextBoxColumn20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn20.HeaderText = "Качество обучения";
+            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
+            this.dataGridViewTextBoxColumn20.ReadOnly = true;
             // 
             // Column18
             // 
@@ -502,7 +593,7 @@
             // Column16
             // 
             this.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column16.HeaderText = "Кол-во сотрудников";
+            this.Column16.HeaderText = "Кол-во сотрудников(всего/подлежащие проверке)";
             this.Column16.Name = "Column16";
             // 
             // Column17
@@ -518,6 +609,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1000, 750);
+            this.Controls.Add(this.tenth_dataGridView);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.ninth_dataGridView);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.eighth_dataGridView);
             this.Controls.Add(this.label8);
@@ -548,6 +642,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.sixth_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.seventh_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.eighth_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ninth_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tenth_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -598,6 +694,15 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView eighth_dataGridView;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView ninth_dataGridView;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private System.Windows.Forms.DataGridView tenth_dataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column18;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;

@@ -18,27 +18,27 @@ namespace OOP
             Tables = new DataGridView[] {
                 first_dataGridView, second_dataGridView, third_dataGridView,
                 fourth_dataGridView, fifth_dataGridView, sixth_dataGridView,
-                seventh_dataGridView, eighth_dataGridView };
+                seventh_dataGridView, eighth_dataGridView, ninth_dataGridView,
+                tenth_dataGridView };
 
             TableManager.InitializeTables(Tables);
             tableManager = new TableManager(Tables);
         }
 
-        private void sendTables()// сюда пока не смотреть 
-        {
-            WebRequest request = WebRequest.Create("");
-            request.Method = "POST";
-            Stream dataStream = request.GetRequestStream();
-            // dataStream.Write();
-            dataStream.Close();
-            WebResponse response = request.GetResponse();
-        }
+        //private void sendTables()// сюда пока не смотреть 
+        //{
+        //    WebRequest request = WebRequest.Create("");
+        //    request.Method = "POST";
+        //    Stream dataStream = request.GetRequestStream();
+        //    // dataStream.Write();
+        //    dataStream.Close();
+        //    WebResponse response = request.GetResponse();
+        //}
 
         private void dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             tableManager.FillTable((DataGridView)sender);
         }
-        
     }
 
     public class TableManager
@@ -70,6 +70,8 @@ namespace OOP
             Tables[6].Rows.Add("0", "0", "0");
             Tables[7].Rows.Add("Инциденты", "0", "0", "0");
             Tables[7].Rows.Add("Техника безопасности", "0", "0", "0");
+            Tables[8].Rows.Add("0", "0", "0");
+            Tables[9].Rows.Add("0", "0", "0");
         }
 
         public void FillTable(DataGridView table)
@@ -202,6 +204,16 @@ namespace OOP
                     tables[7][3, i].Value = (double)parameters[0] / parameters[1];
                 }
                 
+            };
+
+            tablesFillers[8] = () =>
+            {
+
+            };
+
+            tablesFillers[9] = () =>
+            {
+
             };
 
             return tablesFillers;

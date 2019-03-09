@@ -335,7 +335,6 @@
             this.fifth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.fifth_dataGridView.Size = new System.Drawing.Size(953, 58);
             this.fifth_dataGridView.TabIndex = 11;
-            this.fifth_dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.fifth_dataGridView_CellContentClick);
             this.fifth_dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn5

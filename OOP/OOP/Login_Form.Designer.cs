@@ -31,7 +31,7 @@
             this.login_button = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.show_result_button = new System.Windows.Forms.Button();
-            this.name_comboBox = new System.Windows.Forms.ComboBox();
+            this.branches_comboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // login_button
@@ -64,28 +64,25 @@
             this.show_result_button.TabIndex = 3;
             this.show_result_button.Text = "Показать итоговую таблицу";
             this.show_result_button.UseVisualStyleBackColor = true;
+            this.show_result_button.Click += new System.EventHandler(this.Show_result_button_Click);
             // 
-            // name_comboBox
+            // branches_comboBox
             // 
-            this.name_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.name_comboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.name_comboBox.FormattingEnabled = true;
-            this.name_comboBox.Items.AddRange(new object[] {
-            "Филиал первый",
-            "Филиал второй",
-            "Филиал для теста"});
-            this.name_comboBox.Location = new System.Drawing.Point(191, 12);
-            this.name_comboBox.MaxLength = 32;
-            this.name_comboBox.Name = "name_comboBox";
-            this.name_comboBox.Size = new System.Drawing.Size(247, 24);
-            this.name_comboBox.TabIndex = 4;
+            this.branches_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.branches_comboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.branches_comboBox.FormattingEnabled = true;
+            this.branches_comboBox.Location = new System.Drawing.Point(191, 12);
+            this.branches_comboBox.MaxLength = 32;
+            this.branches_comboBox.Name = "branches_comboBox";
+            this.branches_comboBox.Size = new System.Drawing.Size(247, 24);
+            this.branches_comboBox.TabIndex = 4;
             // 
             // Login_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(450, 78);
-            this.Controls.Add(this.name_comboBox);
+            this.Controls.Add(this.branches_comboBox);
             this.Controls.Add(this.show_result_button);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.login_button);
@@ -104,6 +101,6 @@
         private System.Windows.Forms.Button login_button;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button show_result_button;
-        private System.Windows.Forms.ComboBox name_comboBox;
+        private System.Windows.Forms.ComboBox branches_comboBox;
     }
 }

@@ -11,10 +11,10 @@ namespace OOP
     public partial class Main_Form : Form
     {
         const string tables_data_path = "tables.dat";
-        const string info_ini_path = "info.ini";
+        const string ip_info_path = "ip.ini";
+        const string branches_info_path = "branches.inf";
 
         private TableManager tableManager;
-        private IPEndPoint address;
         private DataGridView[] Tables;
 
         public Main_Form()
@@ -39,24 +39,28 @@ namespace OOP
         private void Save_send_button_Click(object sender, EventArgs e)
         {
             DataManager.Serialize(Tables, tables_data_path);
-            if (!DataManager.SendOnServer(address, tables_data_path))
+            DataManager.SendRequest(DataManager.MessageType.SendFile, tables_data_path);
+            /*
+            if (!DataManager.SendRequest(address, DataManager.MessageType.SendFile, tables_data_path))
             {
                 MessageBox.Show(this, "Не удалось отправить данные на сервер\n\rПопробуйте позже",
                     "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            //File.Delete(tables_data_path);
+            */
         }
 
         private void Main_Form_Load(object sender, EventArgs e)
         {
-            DataManager.Deserialize(Tables, tables_data_path);
-            address = DataManager.ParseIp(info_ini_path);
+            DataManager.ParseIp(ip_info_path);
 
-            Login_Form login_Form = new Login_Form();
+            Login_Form login_Form = new Login_Form(branches_info_path);
             login_Form.ShowDialog(this);
+            if (DataManager.BranchIndex < 0)
+                Close();
             
             Text += ": Данные " + DataManager.BranchName;
+            DataManager.Deserialize(Tables, tables_data_path);
         }
     }
 }

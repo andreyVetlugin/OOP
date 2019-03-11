@@ -15,34 +15,51 @@ namespace OOP
         const string default_ip = "127.0.0.1";
         const int default_port = 3123;
 
-        public static string BranchName;
-        public static int BranchIndex;
+        public enum MessageType { GetResult, SendFile };
 
-        public static bool SendOnServer(IPEndPoint address, string file_path)
+        private static IPEndPoint Address = new IPEndPoint(IPAddress.Parse(default_ip), default_port);
+        public static string BranchName;
+        public static int BranchIndex = -1;
+        
+        public static void SendRequest(MessageType messageType, string file_path)
         {
             using (UdpClient client = new UdpClient())
             {
-                byte[] file = File.ReadAllBytes(file_path);
-                byte[] id = BitConverter.GetBytes(BranchIndex);
-                client.Send(id, id.Length, address);
-                int bytes_sent = client.Send(file, file.Length, address);
-                return bytes_sent == file.Length;
+                byte[] type = BitConverter.GetBytes((int)messageType);
+                client.Send(type, type.Length, Address);
+
+                if (messageType == MessageType.SendFile)
+                {
+                    byte[] id = BitConverter.GetBytes(BranchIndex);
+                    client.Send(id, id.Length, Address);
+
+                    byte[] file = File.ReadAllBytes(file_path);
+                    client.Send(file, file.Length, Address);
+                }
             }
         }
 
-        public static IPEndPoint ParseIp(string file_path)
+        public static string GetResponse()
         {
-            IPEndPoint default_address = new IPEndPoint(IPAddress.Parse(default_ip), default_port);
+            using (UdpClient client = new UdpClient(Address))
+            {
+                IPEndPoint addr = null;
+                byte[] data = client.Receive(ref addr);
+                return Encoding.Unicode.GetString(data);
+            }
+        }
+
+        public static void ParseIp(string file_path)
+        {
             if (!File.Exists(file_path))
             {
                 File.WriteAllText(file_path, default_ip + ":" + default_port.ToString());
-                return default_address;
+                return;
             }
             string[] ip_port = File.ReadAllText(file_path).Split(':');
 
             if (IPAddress.TryParse(ip_port[0], out IPAddress ip) && int.TryParse(ip_port[1], out int port))
-                return new IPEndPoint(ip, port);
-            return default_address;
+                Address = new IPEndPoint(ip, port);
         }
 
         public static void Serialize(DataGridView[] Tables, string file_path)

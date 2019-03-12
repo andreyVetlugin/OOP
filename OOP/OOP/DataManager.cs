@@ -24,12 +24,13 @@ namespace OOP
         public static bool ConnectToServer(IPEndPoint address)
         {
             client = new TcpClient();
-            return client.ConnectAsync(address.Address, address.Port).Wait(2000);
-        }
-
-        public static void DisconnectFromServer()
-        {
-            client.Close();
+            bool success = true;
+            try
+            {
+                success = client.ConnectAsync(address.Address, address.Port).Wait(2000);
+            }
+            catch { success = false; }
+            return success;
         }
 
         public static void SendRequest(MessageType messageType, string file_path)

@@ -48,7 +48,6 @@ namespace OOP
             }
             DataManager.SendRequest(DataManager.MessageType.GetResult, null);
             DataManager.GetResponse("result.dat");
-            DataManager.DisconnectFromServer();
         }
     }
 }

@@ -49,7 +49,6 @@ namespace OOP
                 return;
             }
             DataManager.SendRequest(DataManager.MessageType.SendFile, tables_data_path);
-            DataManager.DisconnectFromServer();
         }
 
         private void Main_Form_Load(object sender, EventArgs e)

@@ -16,7 +16,7 @@ namespace OOPServer
         const int default_port = 3344;
         const string port_info_path = "port.ini";
 
-        public enum MessageType { GetResult, SendFile };
+        public enum MessageType { GetResult, SendFile, HttpRequest = 542393671 };
 
         static void Main(string[] args)
         {
@@ -50,7 +50,7 @@ namespace OOPServer
                         File.WriteAllBytes("branch" + branch_id + ".dat", data.ToArray());
                         Console.WriteLine("File branch" + branch_id + ".dat was received");
                     }
-                    else
+                    else if (messageType == MessageType.GetResult)
                     {
                         //Код создания итоговой таблицы из имеющихся данных
                         //Итоговая таблица - result.dat
@@ -58,6 +58,14 @@ namespace OOPServer
                         stream.Write(file, 0, file.Length);
                         Thread.Sleep(200);
                         Console.WriteLine("File result.dat was sent");
+                    }
+                    else if (messageType == MessageType.HttpRequest)
+                    {
+                        Console.WriteLine("Http Request");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error Request");
                     }
                 }
                 client.Close();

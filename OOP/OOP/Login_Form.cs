@@ -15,8 +15,6 @@ namespace OOP
 {
     public partial class Login_Form : Form
     {
-        private string ip_path;
-
         public Login_Form()
         {
             InitializeComponent();

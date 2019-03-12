@@ -6,77 +6,61 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
+using System.Threading;
 
 namespace OOPServer
 {
     class Program
     {
         const string default_ip = "127.0.0.1";
-        const int default_port = 3123;
+        const int default_port = 3344;
         const string ip_info_path = "ip.ini";
 
         public enum MessageType { GetResult, SendFile };
 
         static void Main(string[] args)
         {
-            TcpListener server = new TcpListener(IPAddress.Any, 49667);
+            TcpListener server = new TcpListener(IPAddress.Any, default_port);
             server.Start();
+
             while (true)
             {
                 TcpClient client = server.AcceptTcpClient();
-                string html = "<html>\n<body>\n<h1>Kruglikov - pidor</h1>\n</body>\n</html>";
-                string http = "HTTP/1.1 200 OK\nContent-Length: " + html.Length +
-                    "\nContent-Type: text/html\n\n" + html;
-                byte[] data = Encoding.ASCII.GetBytes(http);
-                client.GetStream().Write(data, 0, data.Length);
-                client.Close();
-                Console.WriteLine("Client enter");
-            }
-            /*
-            IPEndPoint address = ParseIp(ip_info_path);
-            UdpClient client = new UdpClient(address);
-
-
-            while(true)
-            {
-                byte[] data = client.Receive(ref address);
-                MessageType messageType = (MessageType)BitConverter.ToInt32(data, 0);
-
-                if (messageType == MessageType.SendFile)
+                using (NetworkStream stream = client.GetStream())
                 {
-                    data = client.Receive(ref address);
-                    int branch_index = BitConverter.ToInt32(data, 0);
-                    using (FileStream file = File.Create("branch" + branch_index + ".dat"))
+                    byte[] buffer_for_int = new byte[4];
+                    stream.Read(buffer_for_int, 0, 4);
+                    MessageType messageType = (MessageType)BitConverter.ToInt32(buffer_for_int, 0);
+
+                    if (messageType == MessageType.SendFile)
                     {
-                        data = client.Receive(ref address);
-                        file.Write(data, 0, data.Length);
+                        stream.Read(buffer_for_int, 0, 4);
+                        int branch_id = BitConverter.ToInt32(buffer_for_int, 0);
+
+                        List<byte> data = new List<byte>();
+                        do
+                        {
+                            byte[] buffer = new byte[256];
+                            int bytes_count = stream.Read(buffer, 0, buffer.Length);
+                            for (int i = 0; i < bytes_count; i++)
+                                data.Add(buffer[i]);
+                        } while (stream.DataAvailable);
+
+                        File.WriteAllBytes("branch" + branch_id + ".dat", data.ToArray());
+                        Console.WriteLine("File branch" + branch_id + ".dat was received");
                     }
-                    Console.WriteLine("branch" + branch_index + "send data correctly");
+                    else
+                    {
+                        //Код создания итоговой таблицы из имеющихся данных
+                        //Итоговая таблица - result.dat
+                        byte[] file = File.ReadAllBytes("result.dat");
+                        stream.Write(file, 0, file.Length);
+                        Thread.Sleep(200);
+                        Console.WriteLine("File result.dat was sent");
+                    }
                 }
-                else
-                {
-                    //Здесь код для подсчета баллов по всем таблицам
-                    //Последующая отправка пользователю
-                    byte[] message = Encoding.Unicode.GetBytes("Тестовое сообщение123");
-                    client.Send(message, message.Length, address);
-                }
+                client.Close();
             }
-            */
-        }
-
-        private static IPEndPoint ParseIp(string file_path)
-        {
-            IPEndPoint default_address = new IPEndPoint(IPAddress.Parse(default_ip), default_port);
-            if (!File.Exists(file_path))
-            {
-                File.WriteAllText(file_path, default_ip + ":" + default_port.ToString());
-                return default_address;
-            }
-            string[] ip_port = File.ReadAllText(file_path).Split(':');
-
-            if (IPAddress.TryParse(ip_port[0], out IPAddress ip) && int.TryParse(ip_port[1], out int port))
-                return new IPEndPoint(ip, port);
-            return default_address;
         }
     }
 }

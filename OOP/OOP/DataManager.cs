@@ -13,53 +13,70 @@ namespace OOP
     public static class DataManager
     {
         const string default_ip = "127.0.0.1";
-        const int default_port = 3123;
+        const int default_port = 3344;
 
         public enum MessageType { GetResult, SendFile };
-
-        private static IPEndPoint Address = new IPEndPoint(IPAddress.Parse(default_ip), default_port);
+        
+        private static TcpClient client;
         public static string BranchName;
         public static int BranchIndex = -1;
         
+        public static bool ConnectToServer(IPEndPoint address)
+        {
+            client = new TcpClient();
+            return client.ConnectAsync(address.Address, address.Port).Wait(2000);
+        }
+
+        public static void DisconnectFromServer()
+        {
+            client.Close();
+        }
+
         public static void SendRequest(MessageType messageType, string file_path)
         {
-            using (UdpClient client = new UdpClient())
+            NetworkStream stream = client.GetStream();
+
+            byte[] type = BitConverter.GetBytes((int)messageType);
+            stream.Write(type, 0, type.Length);
+
+            if (messageType == MessageType.SendFile)
             {
-                byte[] type = BitConverter.GetBytes((int)messageType);
-                client.Send(type, type.Length, Address);
+                byte[] index = BitConverter.GetBytes(BranchIndex);
+                stream.Write(index, 0, index.Length);
 
-                if (messageType == MessageType.SendFile)
-                {
-                    byte[] id = BitConverter.GetBytes(BranchIndex);
-                    client.Send(id, id.Length, Address);
-
-                    byte[] file = File.ReadAllBytes(file_path);
-                    client.Send(file, file.Length, Address);
-                }
+                byte[] file = File.ReadAllBytes(file_path);
+                stream.Write(file, 0, file.Length);
             }
         }
 
-        public static string GetResponse()
+        public static void GetResponse(string result_file_path)
         {
-            using (UdpClient client = new UdpClient(Address))
+            NetworkStream stream = client.GetStream();
+            List<byte> data = new List<byte>();
+            do
             {
-                IPEndPoint addr = null;
-                byte[] data = client.Receive(ref addr);
-                return Encoding.Unicode.GetString(data);
-            }
+                byte[] buffer = new byte[256];
+                int bytes_count = stream.Read(buffer, 0, buffer.Length);
+                for (int i = 0; i < bytes_count; i++)
+                    data.Add(buffer[i]);
+            } while (stream.DataAvailable);
+
+            File.WriteAllBytes(result_file_path, data.ToArray());
         }
 
-        public static void ParseIp(string file_path)
+        public static IPEndPoint ParseIp(string file_path)
         {
+            IPEndPoint default_address = new IPEndPoint(IPAddress.Parse(default_ip), default_port);
             if (!File.Exists(file_path))
             {
                 File.WriteAllText(file_path, default_ip + ":" + default_port.ToString());
-                return;
+                return default_address;
             }
             string[] ip_port = File.ReadAllText(file_path).Split(':');
 
             if (IPAddress.TryParse(ip_port[0], out IPAddress ip) && int.TryParse(ip_port[1], out int port))
-                Address = new IPEndPoint(ip, port);
+                return new IPEndPoint(ip, port);
+            return default_address;
         }
 
         public static void Serialize(DataGridView[] Tables, string file_path)

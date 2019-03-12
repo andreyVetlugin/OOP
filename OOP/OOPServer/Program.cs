@@ -14,13 +14,14 @@ namespace OOPServer
     {
         const string default_ip = "127.0.0.1";
         const int default_port = 3344;
-        const string ip_info_path = "ip.ini";
+        const string port_info_path = "port.ini";
 
         public enum MessageType { GetResult, SendFile };
 
         static void Main(string[] args)
         {
-            TcpListener server = new TcpListener(IPAddress.Any, default_port);
+            int port = ParsePort(port_info_path);
+            TcpListener server = new TcpListener(IPAddress.Any, port);
             server.Start();
 
             while (true)
@@ -61,6 +62,18 @@ namespace OOPServer
                 }
                 client.Close();
             }
+        }
+
+        static int ParsePort(string port_info_path)
+        {
+            if (!File.Exists(port_info_path))
+            {
+                File.WriteAllText(port_info_path, default_port.ToString());
+                return default_port;
+            }
+            if (!int.TryParse(File.ReadAllText(port_info_path), out int port))
+                return -1;
+            return port;
         }
     }
 }

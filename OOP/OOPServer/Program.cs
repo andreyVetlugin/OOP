@@ -19,8 +19,23 @@ namespace OOPServer
 
         static void Main(string[] args)
         {
+            TcpListener server = new TcpListener(IPAddress.Any, 49667);
+            server.Start();
+            while (true)
+            {
+                TcpClient client = server.AcceptTcpClient();
+                string html = "<html>\n<body>\n<h1>Kruglikov - pidor</h1>\n</body>\n</html>";
+                string http = "HTTP/1.1 200 OK\nContent-Length: " + html.Length +
+                    "\nContent-Type: text/html\n\n" + html;
+                byte[] data = Encoding.ASCII.GetBytes(http);
+                client.GetStream().Write(data, 0, data.Length);
+                client.Close();
+                Console.WriteLine("Client enter");
+            }
+            /*
             IPEndPoint address = ParseIp(ip_info_path);
             UdpClient client = new UdpClient(address);
+
 
             while(true)
             {
@@ -46,6 +61,7 @@ namespace OOPServer
                     client.Send(message, message.Length, address);
                 }
             }
+            */
         }
 
         private static IPEndPoint ParseIp(string file_path)

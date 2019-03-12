@@ -66,6 +66,7 @@ namespace OOP
             }
             return true;
         }
+
         private TableFiller[] GetTableFillers(DataGridView[] tables)
         {
             TableFiller[] tablesFillers = new TableFiller[tables.Length];

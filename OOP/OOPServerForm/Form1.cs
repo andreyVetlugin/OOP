@@ -19,7 +19,6 @@ namespace OOPServerForm
             InitializeComponent();
 
             // получение данных и десириализация ..в branches запихиваем массив таблиц для каждого филиала
-
             //Branch[] branches = new Branch[6];
             //BranchManager branchManager = new BranchManager(branches);
             //branchManager.CalcualateBranchesRating();
@@ -31,7 +30,11 @@ namespace OOPServerForm
                 seventh_dataGridView, eighth_dataGridView, ninth_dataGridView,
                 tenth_dataGridView };
 
-            JustForTests.Deserialize(Tables, tables_data_path);
+            var branchTables = JustForTests.DeserializeToNewtables(tables_data_path);
+            Branch[] branches = new Branch[1];
+            branches[0] = new Branch(branchTables);
+            BranchManager branchManager = new BranchManager(branches);
+            branchManager.CalcualateBranchesRating();
 
             InitializeTables(Tables);
         }
@@ -102,25 +105,32 @@ namespace OOPServerForm
 }
 
 
-
-
-
 public class JustForTests
 {
-    public static void Deserialize(DataGridView[] Tables, string file_path)
+    public static DataGridView[] DeserializeToNewtables(string file_path)
     {
+        DataGridView[] Tables = new DataGridView[10];
         if (!File.Exists(file_path))
-            return;
+            return Tables; // ПЕРЕДЕЛать
         using (FileStream file = File.OpenRead(file_path))
         {
-            for (int i = 0; i < Tables.Length; i++)
+            for (int i = 0; i < 10; i++)
             {
+                Tables[i] = new DataGridView();
+                List<byte> buffer = new List<byte>(byte.MaxValue);
+                byte[] bytes = new byte[4];
+                file.Read(bytes, 0, 4);
+                buffer.AddRange(bytes);
+                Tables[i].ColumnCount = (int)bytes[0] + ((int)bytes[1] << 8) + ((int)bytes[2] << 16) + ((int)bytes[3] << 24);
+                file.Read(bytes, 0, 4);
+                buffer.AddRange(bytes);
+                Tables[i].RowCount = (int)bytes[0] + ((int)bytes[1] << 8) + ((int)bytes[2] << 16) + ((int)bytes[3] << 24);
                 for (int y = 0; y < Tables[i].RowCount; y++)
                 {
                     for (int x = 0; x < Tables[i].ColumnCount; x++)
                     {
-                        List<byte> buffer = new List<byte>(byte.MaxValue);
-                        byte[] bytes = new byte[2];
+                        buffer = new List<byte>(byte.MaxValue);
+                        bytes = new byte[2];
                         while (file.Read(bytes, 0, 2) == 2)
                         {
                             if (bytes[0] == 0x02 && bytes[1] == 0xA8)
@@ -132,6 +142,7 @@ public class JustForTests
                 }
             }
         }
+        return Tables;
     }
 }
 
@@ -142,24 +153,37 @@ public class BranchManager
     {
         this.branches = branches;
     }
-
     public void CalcualateBranchesRating()
     {
+        CalculateParametersRaiting(0, branches[0].Tables[0].ColumnCount - 1);
         // для всех таблиц вызов CalcualateBranchesRatingForTable
     }
     private void CalcualateBranchesRatingForTable(int tableNumber/*, int finallyScoreColumn = 5*/)
     {
-
         //var distributionRaiting = GetDistributionRaiting(); туда кинуть данные суммарные баллы по параметрам
-
         for (int i = 0; i < branches.Length; i++)
         {
 
         }
     }
 
+    private void CalculateFinallRating(int tableNumber)
+    {
+        int parameterColumn = branches[0].Tables[tableNumber].ColumnCount - 1;
+        var distributionRaiting = GetDistributionRaiting(tableNumber, parameterColumn);
+        foreach (var branch in branches)
+        {
+            var paramValue = GetCellValue(branch.Tables[tableNumber][parameterColumn, 0]);
+            if (branch.Tables[tableNumber].ColumnCount >= parameterColumn)
+            {
+                branch.Tables[tableNumber].ColumnCount++;// можно просто инкременить count?
+                branch.Tables[tableNumber][parameterColumn + 1, 0].Value = distributionRaiting[paramValue];
+            }
+        }
+    }
 
-    private void CalculateParametersRaiting(int tableNumber, int parameterColumn = 3)
+
+    private void CalculateParametersRaiting(int tableNumber, int parameterColumn = 3)// table number от 0
     {
         double[] possibleValues = new double[branches.Length];
         for (var i = 0; i < branches[0].Tables[tableNumber].RowCount; i++)
@@ -167,8 +191,12 @@ public class BranchManager
             var distributionRaiting = GetDistributionRaiting(tableNumber, parameterColumn, i);
             foreach (var branch in branches)
             {
-                var paramValue = GetCellValue(branch.Tables[tableNumber][3, i]);
-                branch.TableParametersRating[tableNumber][i] = distributionRaiting[paramValue];
+                var paramValue = GetCellValue(branch.Tables[tableNumber][parameterColumn, i]);
+                if (branch.Tables[tableNumber].ColumnCount >= parameterColumn)
+                {
+                    branch.Tables[tableNumber].ColumnCount++;// можно просто инкременить count?
+                    branch.Tables[tableNumber][parameterColumn + 1, i].Value = distributionRaiting[paramValue];
+                }
             }
         }
     }
@@ -201,7 +229,7 @@ public class BranchManager
         return distribution;
     }
 }
-public class Branch //сделать структурой 
+public class Branch //сделать структурой
 {
     public readonly DataGridView[] Tables;
     public int[] TablesRatings;

@@ -231,9 +231,8 @@ public class BranchManager
 }
 public class Branch //сделать структурой
 {
-    public readonly DataGridView[] Tables;
-    public int[] TablesRatings;
-    public Dictionary<int, int[]> TableParametersRating; //заменить на dictionary<DataGridView,int[]>;?
+    public readonly DataGridView[] Tables;   
+    
     public Branch(DataGridView[] tables)
     {
         Tables = tables;

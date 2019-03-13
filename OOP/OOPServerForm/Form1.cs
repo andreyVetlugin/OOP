@@ -39,7 +39,7 @@ namespace OOPServerForm
             InitializeTables(Tables);
         }
 
-        public static void InitializeTables(DataGridView[] Tables)
+        public void InitializeTables(DataGridView[] Tables)
         {
             for (int i = 1; i < 7; i++)
             {
@@ -61,6 +61,25 @@ namespace OOPServerForm
                 Tables[8].Rows.Add(i, "Коффициент текучести кадров", "0", "0", "0", "0", "0", "0");
                 Tables[8].Rows.Add(i, "Качество обучения", "0", "0", "0", "0", "0", "0");
             }
+
+            string[] parametrs_text = new string[9];
+            foreach(Control control in Controls)
+            {
+                if (control is Label)
+                {
+                    string name = control.Name;
+                    if (name.Length != 6)
+                        continue;
+                    if (!int.TryParse(name.Substring(5), out int index))
+                        continue;
+                    parametrs_text[index - 1] = control.Text.Remove(control.Text.Length - 1);
+                }
+            }
+            for (int i = 1; i < parametrs_text.Length + 1; i++)
+                Tables[9].Rows.Add(i, parametrs_text[i - 1], "0", "0", "0", "0", "0", "0", "0");
+            
+            Tables[9].Rows.Add("", "Сумма баллов с учетом веса", "0", "0", "0", "0", "0", "0", "0");
+            Tables[9].Rows.Add("", "Итоговое местов рейтинге", "0", "0", "0", "0", "0", "0", "0");
         }
 
         private void DataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -97,8 +116,13 @@ namespace OOPServerForm
             DataGridView dataGrid = (DataGridView)sender;
             if (e.RowIndex >= 0)
             {
-                if ((int)dataGrid[0, e.RowIndex].Value % 2 == 0)
-                    e.CellStyle.BackColor = Color.Lavender;
+                if (int.TryParse(dataGrid[0, e.RowIndex].Value.ToString(), out int value))
+                {
+                    if (value % 2 == 0)
+                        e.CellStyle.BackColor = Color.Lavender;
+                }
+                else
+                    e.CellStyle.BackColor = Color.MistyRose;
             }
         }
     }

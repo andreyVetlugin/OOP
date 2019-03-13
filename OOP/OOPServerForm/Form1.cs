@@ -50,14 +50,14 @@ namespace OOPServerForm
                 Tables[2].Rows.Add(i, "Юридическое", "0", "0", "0", "0", "0", "0");
                 Tables[3].Rows.Add(i, "Физическое", "0", "0", "1", "0", "0", "0", "0");
                 Tables[3].Rows.Add(i, "Юридическое", "0", "0", "1", "0", "0", "0", "0");
+                Tables[4].Rows.Add(i, "0", "0", "0", "0", "0", "0");
+                Tables[5].Rows.Add(i, "0", "0");
+                Tables[6].Rows.Add(i, "0", "0", "0", "0");
+                Tables[7].Rows.Add(i, "Инциденты", "0", "0", "0", "0", "0", "0");
+                Tables[7].Rows.Add(i, "Техника безопасности", "0", "0", "0", "0", "0", "0");
+                Tables[8].Rows.Add(i, "Коффициент текучести кадров", "0", "0", "0", "0", "0", "0");
+                Tables[8].Rows.Add(i, "Качество обучения", "0", "0", "0", "0", "0", "0");
             }
-            Tables[4].Rows.Add("0", "0", "0", "0", "0");
-            Tables[5].Rows.Add("0");
-            Tables[6].Rows.Add("0", "0", "0");
-            Tables[7].Rows.Add("Инциденты", "0", "0", "0");
-            Tables[7].Rows.Add("Техника безопасности", "0", "0", "0");
-            Tables[8].Rows.Add("0", "0", "0");
-            Tables[9].Rows.Add("0", "0", "0");
         }
 
         private void DataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -77,6 +77,7 @@ namespace OOPServerForm
 
         private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            Common_dataGridView_CellFormatting(sender, e);
             DataGridView dataGrid = (DataGridView)sender;
             if ((e.ColumnIndex == 0 ||
                    e.ColumnIndex == dataGrid.ColumnCount - 1 ||
@@ -84,9 +85,17 @@ namespace OOPServerForm
                    e.RowIndex > 0)
             {
                 if (dataGrid[0, e.RowIndex].Value.ToString() == dataGrid[0, e.RowIndex - 1].Value.ToString())
-                {
-                    e.Value = "";
-                }
+                    e.CellStyle.ForeColor = e.CellStyle.BackColor;
+            }
+        }
+
+        private void Common_dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridView dataGrid = (DataGridView)sender;
+            if (e.RowIndex >= 0)
+            {
+                if ((int)dataGrid[0, e.RowIndex].Value % 2 == 0)
+                    e.CellStyle.BackColor = Color.Lavender;
             }
         }
     }

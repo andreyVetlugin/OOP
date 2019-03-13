@@ -18,7 +18,7 @@ namespace OOPServerForm
         {
             InitializeComponent();
 
-            // получение данных и десириализация ..в branches  запихиваем массив таблиц для каждого филиала
+            // получение данных и десириализация ..в branches запихиваем массив таблиц для каждого филиала
 
             //Branch[] branches = new Branch[6];
             //BranchManager branchManager = new BranchManager(branches);

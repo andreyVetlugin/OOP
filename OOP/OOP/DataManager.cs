@@ -86,11 +86,15 @@ namespace OOP
             {
                 for (int i = 0; i < Tables.Length; i++)
                 {
+                    byte[] buffer = BitConverter.GetBytes(Tables[i].ColumnCount);
+                    file.Write(buffer, 0, buffer.Length);
+                    buffer = BitConverter.GetBytes(Tables[i].RowCount);
+                    file.Write(buffer, 0, buffer.Length);
                     for (int y = 0; y < Tables[i].RowCount; y++)
                     {
                         for (int x = 0; x < Tables[i].ColumnCount; x++)
                         {
-                            byte[] buffer = Encoding.Unicode.GetBytes(Tables[i][x, y].Value.ToString());
+                            buffer = Encoding.Unicode.GetBytes(Tables[i][x, y].Value.ToString());
                             file.Write(buffer, 0, buffer.Length);
                             file.WriteByte(0x02);
                             file.WriteByte(0xA8);
@@ -104,10 +108,12 @@ namespace OOP
         {
             if (!File.Exists(file_path))
                 return;
+
             using (FileStream file = File.OpenRead(file_path))
             {
                 for (int i = 0; i < Tables.Length; i++)
                 {
+                    file.Position += 8;
                     for (int y = 0; y < Tables[i].RowCount; y++)
                     {
                         for (int x = 0; x < Tables[i].ColumnCount; x++)

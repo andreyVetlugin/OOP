@@ -17,13 +17,6 @@ namespace OOPServerForm
         public Form1()
         {
             InitializeComponent();
-
-            // получение данных и десириализация ..в branches запихиваем массив таблиц для каждого филиала
-            //Branch[] branches = new Branch[6];
-            //BranchManager branchManager = new BranchManager(branches);
-            //branchManager.CalcualateBranchesRating();
-
-
             DataGridView[] Tables = new DataGridView[] {
                 first_dataGridView, second_dataGridView, third_dataGridView,
                 fourth_dataGridView, fifth_dataGridView, sixth_dataGridView,
@@ -63,7 +56,7 @@ namespace OOPServerForm
             }
 
             string[] parametrs_text = new string[9];
-            foreach(Control control in Controls)
+            foreach (Control control in Controls)
             {
                 if (control is Label)
                 {
@@ -77,7 +70,7 @@ namespace OOPServerForm
             }
             for (int i = 1; i < parametrs_text.Length + 1; i++)
                 Tables[9].Rows.Add(i, parametrs_text[i - 1], "0", "0", "0", "0", "0", "0", "0");
-            
+
             Tables[9].Rows.Add("", "Сумма баллов с учетом веса", "0", "0", "0", "0", "0", "0", "0");
             Tables[9].Rows.Add("", "Итоговое местов рейтинге", "0", "0", "0", "0", "0", "0", "0");
         }
@@ -180,7 +173,6 @@ public class BranchManager
     public void CalcualateBranchesRating()
     {
         CalculateParametersRaiting(0, branches[0].Tables[0].ColumnCount - 1);
-        // для всех таблиц вызов CalcualateBranchesRatingForTable
     }
     private void CalcualateBranchesRatingForTable(int tableNumber/*, int finallyScoreColumn = 5*/)
     {
@@ -210,19 +202,27 @@ public class BranchManager
     private void CalculateParametersRaiting(int tableNumber, int parameterColumn = 3)// table number от 0
     {
         double[] possibleValues = new double[branches.Length];
-        for (var i = 0; i < branches[0].Tables[tableNumber].RowCount; i++)
+        Dictionary<Branch, int> summRatingForBranches = new Dictionary<Branch, int>();
+        foreach (var branch in branches)
+            summRatingForBranches[branch] = 0;
+        for (var i = 0; i < branches[0].Tables[tableNumber].RowCount; i++) //строки с различными показателями
         {
             var distributionRaiting = GetDistributionRaiting(tableNumber, parameterColumn, i);
             foreach (var branch in branches)
             {
                 var paramValue = GetCellValue(branch.Tables[tableNumber][parameterColumn, i]);
-                if (branch.Tables[tableNumber].ColumnCount >= parameterColumn)
-                {
+                if (branch.Tables[tableNumber].ColumnCount-1 <= parameterColumn)
                     branch.Tables[tableNumber].ColumnCount++;// можно просто инкременить count?
-                    branch.Tables[tableNumber][parameterColumn + 1, i].Value = distributionRaiting[paramValue];
-                }
+                branch.Tables[tableNumber][parameterColumn + 1, i].Value = distributionRaiting[paramValue];
+                summRatingForBranches[branch] += distributionRaiting[paramValue];
             }
         }
+        foreach (var branch in branches)
+        {
+            if(branch.Tables[tableNumber].ColumnCount-1 <= parameterColumn+1)
+                    branch.Tables[tableNumber].ColumnCount++;
+            branch.Tables[tableNumber][parameterColumn + 2, 0].Value = summRatingForBranches[branch];
+        }        
     }
 
     private double GetCellValue(DataGridViewCell cell)
@@ -255,8 +255,8 @@ public class BranchManager
 }
 public class Branch //сделать структурой
 {
-    public readonly DataGridView[] Tables;   
-    
+    public readonly DataGridView[] Tables;
+
     public Branch(DataGridView[] tables)
     {
         Tables = tables;

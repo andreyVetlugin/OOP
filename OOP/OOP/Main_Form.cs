@@ -11,7 +11,7 @@ namespace OOP
 {
     public partial class Main_Form : Form
     {
-        const string tables_data_path = "tables.dat";
+        const string tables_data_name = "tables";
         public const string ip_info_path = "ip.ini";
         public const string branches_info_path = "branches.inf";
 
@@ -39,7 +39,7 @@ namespace OOP
 
         private void Save_send_button_Click(object sender, EventArgs e)
         {
-            DataManager.Serialize(Tables, tables_data_path);
+            DataManager.Serialize(Tables, tables_data_name + DataManager.BranchIndex + ".dat");
 
             IPEndPoint address = DataManager.ParseIp(ip_info_path);
             if (!DataManager.ConnectToServer(address))
@@ -48,7 +48,7 @@ namespace OOP
                     "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            DataManager.SendRequest(DataManager.MessageType.SendFile, tables_data_path);
+            DataManager.SendRequest(DataManager.MessageType.SendFile, tables_data_name + DataManager.BranchIndex + ".dat");
         }
 
         private void Main_Form_Load(object sender, EventArgs e)
@@ -59,7 +59,12 @@ namespace OOP
                 Close();
             
             Text += ": Данные " + DataManager.BranchName;
-            DataManager.Deserialize(Tables, tables_data_path);
+            DataManager.Deserialize(Tables, tables_data_name + DataManager.BranchIndex + ".dat");
+        }
+
+        private void Main_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DataManager.Serialize(Tables, tables_data_name + DataManager.BranchIndex + ".dat");
         }
     }
 }

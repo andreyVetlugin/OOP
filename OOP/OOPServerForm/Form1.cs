@@ -71,8 +71,8 @@ namespace OOPServerForm
             for (int i = 1; i < parametrs_text.Length + 1; i++)
                 Tables[9].Rows.Add(i, parametrs_text[i - 1], "0", "0", "0", "0", "0", "0", "0");
 
-            Tables[9].Rows.Add("", "Сумма баллов с учетом веса", "0", "0", "0", "0", "0", "0", "0");
-            Tables[9].Rows.Add("", "Итоговое местов рейтинге", "0", "0", "0", "0", "0", "0", "0");
+            Tables[9].Rows.Add("", "Сумма баллов с учетом веса", "", "0", "0", "0", "0", "0", "0");
+            Tables[9].Rows.Add("", "Итоговое местов рейтинге", "", "0", "0", "0", "0", "0", "0");
         }
 
         private void DataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

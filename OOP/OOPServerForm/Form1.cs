@@ -35,7 +35,7 @@ namespace OOPServerForm
 
             InitializeTables(Tables);
 
-            TableManager.FillfirstTable(Tables, branchManager);
+            branchManager.FillTables(Tables);
         }
 
         public void InitializeTables(DataGridView[] Tables)
@@ -256,6 +256,18 @@ namespace OOPServerForm
             }
             return distribution;
         }
+        public void FillTables(DataGridView[] Tables)// тест 
+        {
+            for (int tableNum = 0; tableNum < Tables.Length - 2; tableNum++)
+                for (int branchNum = 0; branchNum < branches.Length; branchNum++)
+                    for (var i = 1; i < Tables[tableNum].ColumnCount; i++)// колонки
+                        for (var j = 0; j < branches[branchNum].Tables[tableNum].RowCount; j++)//строки
+                        {
+                            if (((int)TableTypes[tableNum] == 0 || (int)TableTypes[tableNum] == 1) && i == 1)
+                                continue;
+                            Tables[tableNum][i, j + branchNum * branches[branchNum].Tables[tableNum].RowCount].Value = branches[branchNum].Tables[tableNum][i - 1, j].Value;
+                        }
+        }
     }
     public struct Branch
     {
@@ -263,21 +275,6 @@ namespace OOPServerForm
         public Branch(DataGridView[] tables)
         {
             Tables = tables;
-        }
-    }
-    static public class TableManager
-    {
-        public static void FillfirstTable(DataGridView[] Tables, BranchManager branchManager)// тест 
-        {
-            for (int tableNum = 0; tableNum < Tables.Length - 2; tableNum++)
-                for (int branchNum = 0; branchNum < branchManager.branches.Length; branchNum++)
-                    for (var i = 1; i < Tables[tableNum].ColumnCount; i++)// колонки
-                        for (var j = 0; j < branchManager.branches[branchNum].Tables[tableNum].RowCount; j++)//строки
-                        {
-                            if ((tableNum < 4 || tableNum > 6 || tableNum == 1) && i == 1)
-                                continue;
-                            Tables[tableNum][i, j + branchNum * branchManager.branches[branchNum].Tables[tableNum].RowCount].Value = branchManager.branches[branchNum].Tables[tableNum][i - 1, j].Value;
-                        }
         }
     }
 }

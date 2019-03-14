@@ -27,7 +27,7 @@ namespace OOPServerForm
             Branch[] branches = new Branch[] {
                 new Branch(JustForTests.DeserializeToNewtables("tables0.dat")),
                 new Branch(JustForTests.DeserializeToNewtables("tables1.dat")),
-                new Branch(JustForTests.DeserializeToNewtables("tables2.dat"))
+                //new Branch(JustForTests.DeserializeToNewtables("tables2.dat"))
             };
 
             BranchManager branchManager = new BranchManager(branches);
@@ -274,8 +274,9 @@ namespace OOPServerForm
                     for (var i = 1; i < Tables[tableNum].ColumnCount; i++)// колонки
                         for (var j = 0; j < branchManager.branches[branchNum].Tables[tableNum].RowCount; j++)//строки
                         {
-                            if (tableNum != 1)
-                                Tables[tableNum][i, j + branchNum * branchManager.branches[branchNum].Tables[tableNum].RowCount].Value = branchManager.branches[branchNum].Tables[tableNum][i - 1, j].Value;
+                            if ((tableNum < 4 || tableNum > 6 || tableNum == 1) && i == 1)
+                                continue;
+                            Tables[tableNum][i, j + branchNum * branchManager.branches[branchNum].Tables[tableNum].RowCount].Value = branchManager.branches[branchNum].Tables[tableNum][i - 1, j].Value;
                         }
         }
     }

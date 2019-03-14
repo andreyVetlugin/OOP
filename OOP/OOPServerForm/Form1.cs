@@ -15,7 +15,6 @@ namespace OOPServerForm
 
     public partial class Form1 : Form
     {
-        const string tables_data_path = "tables.dat";
         public Form1()
         {
             InitializeComponent();
@@ -26,9 +25,12 @@ namespace OOPServerForm
                 seventh_dataGridView, eighth_dataGridView, ninth_dataGridView,
                 tenth_dataGridView };
 
-            var branchTables = JustForTests.DeserializeToNewtables(tables_data_path);
-            Branch[] branches = new Branch[1];
-            branches[0] = new Branch(branchTables);
+            Branch[] branches = new Branch[] {
+                new Branch(JustForTests.DeserializeToNewtables("tables.dat")),
+                new Branch(JustForTests.DeserializeToNewtables("tables0.dat")),
+                new Branch(JustForTests.DeserializeToNewtables("tables1.dat"))
+            };
+
             BranchManager branchManager = new BranchManager(branches);
             branchManager.CalcualateBranchesRating();
 
@@ -128,7 +130,7 @@ namespace OOPServerForm
         {
             DataGridView[] Tables = new DataGridView[10];
             if (!File.Exists(file_path))
-                return Tables; // ПЕРЕДЕЛать
+                return Tables;
             using (FileStream file = File.OpenRead(file_path))
             {
                 for (int i = 0; i < 10; i++)
@@ -181,6 +183,7 @@ namespace OOPServerForm
         }
         public void CalcualateBranchesRating()
         {
+            int parameterColumn = branches[0].Tables[0].ColumnCount - 1;// для теста
             for (int i = 0; i < TableTypes.Length; i++)
             {
                 if ((int)TableTypes[i] == 4)
@@ -207,23 +210,23 @@ namespace OOPServerForm
             Dictionary<Branch, int> summRatingForBranches = new Dictionary<Branch, int>();
 
             foreach (var branch in branches)
+            {
                 summRatingForBranches[branch] = 0;
-            for (var i = 0; i < branches[0].Tables[tableNumber].RowCount; i++) //строки с различными показателями
+                branch.Tables[tableNumber].ColumnCount += 2; // место под балл параметра и балл суммарный
+            }
+            for (var i = 0; i < branches[0].Tables[tableNumber].RowCount; i++) //строки с различными показателями // параметры
             {
                 var distributionRaiting = GetDistributionRaiting(tableNumber, parameterColumn, i);
                 foreach (var branch in branches)
                 {
                     var paramValue = GetCellValue(branch.Tables[tableNumber][parameterColumn, i]);
-                    branch.Tables[tableNumber].ColumnCount++;
                     branch.Tables[tableNumber][parameterColumn + 1, i].Value = distributionRaiting[paramValue];
                     summRatingForBranches[branch] += distributionRaiting[paramValue];
                 }
             }
             foreach (var branch in branches)
-            {
-                branch.Tables[tableNumber].ColumnCount++;
                 branch.Tables[tableNumber][parameterColumn + 2, 0].Value = summRatingForBranches[branch];
-            }
+
         }
         private double GetCellValue(DataGridViewCell cell)
         {

@@ -11,17 +11,34 @@ using System.Windows.Forms;
 
 namespace OOPServerForm
 {
+    public enum TableType { Extended, ReverseExtended, Ordinary, ReverseOrdinary, NotFilled }
+
     public partial class Form1 : Form
     {
         const string tables_data_path = "tables.dat";
         public Form1()
         {
             InitializeComponent();
-            DataGridView[] Tables = new DataGridView[] {
+
+            DataGridView[] data_grids = new DataGridView[] {
                 first_dataGridView, second_dataGridView, third_dataGridView,
                 fourth_dataGridView, fifth_dataGridView, sixth_dataGridView,
                 seventh_dataGridView, eighth_dataGridView, ninth_dataGridView,
                 tenth_dataGridView };
+
+            Table[] Tables = new Table[data_grids.Length];
+            for (int i = 0; i < Tables.Length; i++)
+                Tables[i] = new Table(data_grids[i]);
+            
+            Tables[0].Type = TableType.ReverseExtended;
+            Tables[1].Type = TableType.NotFilled;
+            Tables[2].Type = TableType.Extended;
+            Tables[3].Type = TableType.ReverseExtended;
+            Tables[4].Type = TableType.Ordinary;
+            Tables[5].Type = TableType.Ordinary;
+            Tables[6].Type = TableType.ReverseOrdinary;
+            Tables[7].Type = TableType.ReverseExtended;
+            Tables[8].Type = TableType.ReverseExtended;
 
             var branchTables = JustForTests.DeserializeToNewtables(tables_data_path);
             Branch[] branches = new Branch[1];
@@ -32,7 +49,7 @@ namespace OOPServerForm
             InitializeTables(Tables);
         }
 
-        public void InitializeTables(DataGridView[] Tables)
+        public void InitializeTables(Table[] Tables)
         {
             for (int i = 1; i < 7; i++)
             {
@@ -119,8 +136,26 @@ namespace OOPServerForm
             }
         }
     }
-}
 
+    public class Table
+    {
+        private DataGridView data_grid;
+        public TableType Type;
+
+        public DataGridViewRowCollection Rows { get => data_grid.Rows; }
+    
+        public Table(DataGridView dataGridView)
+        {
+            data_grid = dataGridView;
+        }
+
+        public DataGridViewCell this[int columnIndex, int rowIndex]
+        {
+            get { return data_grid[columnIndex, rowIndex]; }
+            set { data_grid[columnIndex, rowIndex] = value; }
+        }
+    }
+}
 
 public class JustForTests
 {

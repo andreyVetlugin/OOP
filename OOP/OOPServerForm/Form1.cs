@@ -12,7 +12,6 @@ using System.Windows.Forms;
 namespace OOPServerForm
 {
     public enum TableType { Extended, ReverseExtended, Ordinary, ReverseOrdinary, NotFilled }
-
     public partial class Form1 : Form
     {
         public Form1()
@@ -26,15 +25,17 @@ namespace OOPServerForm
                 tenth_dataGridView };
 
             Branch[] branches = new Branch[] {
-                new Branch(JustForTests.DeserializeToNewtables("tables.dat")),
                 new Branch(JustForTests.DeserializeToNewtables("tables0.dat")),
-                new Branch(JustForTests.DeserializeToNewtables("tables1.dat"))
+                new Branch(JustForTests.DeserializeToNewtables("tables1.dat")),
+                new Branch(JustForTests.DeserializeToNewtables("tables2.dat"))
             };
 
             BranchManager branchManager = new BranchManager(branches);
             branchManager.CalcualateBranchesRating();
 
             InitializeTables(Tables);
+
+            TableManager.FillfirstTable(Tables, branchManager);
         }
 
         public void InitializeTables(DataGridView[] Tables)
@@ -166,7 +167,7 @@ namespace OOPServerForm
     }
     public class BranchManager
     {
-        private Branch[] branches;
+        public Branch[] branches;
         private static TableType[] TableTypes = {
             TableType.ReverseExtended,
             TableType.NotFilled,
@@ -183,7 +184,6 @@ namespace OOPServerForm
         }
         public void CalcualateBranchesRating()
         {
-            int parameterColumn = branches[0].Tables[0].ColumnCount - 1;// для теста
             for (int i = 0; i < TableTypes.Length; i++)
             {
                 if ((int)TableTypes[i] == 4)
@@ -257,15 +257,27 @@ namespace OOPServerForm
             return distribution;
         }
     }
-    public class Branch //сделать структурой
+    public struct Branch
     {
         public readonly DataGridView[] Tables;
         public Branch(DataGridView[] tables)
         {
             Tables = tables;
         }
-        public Branch()
-        { }
+    }
+    static public class TableManager
+    {
+        public static void FillfirstTable(DataGridView[] Tables, BranchManager branchManager)// тест 
+        {
+            for (int tableNum = 0; tableNum < Tables.Length - 2; tableNum++)
+                for (int branchNum = 0; branchNum < branchManager.branches.Length; branchNum++)
+                    for (var i = 1; i < Tables[tableNum].ColumnCount; i++)// колонки
+                        for (var j = 0; j < branchManager.branches[branchNum].Tables[tableNum].RowCount; j++)//строки
+                        {
+                            if (tableNum != 1)
+                                Tables[tableNum][i, j + branchNum * branchManager.branches[branchNum].Tables[tableNum].RowCount].Value = branchManager.branches[branchNum].Tables[tableNum][i - 1, j].Value;
+                        }
+        }
     }
 }
 

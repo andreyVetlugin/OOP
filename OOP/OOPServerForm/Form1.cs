@@ -129,25 +129,25 @@ namespace OOPServerForm
     {
         public static DataGridView[] DeserializeToNewtables(string file_path)
         {
-            DataGridView[] Tables = new DataGridView[10];
+            DataGridView[] tables = new DataGridView[10];
             if (!File.Exists(file_path))
-                return Tables;
+                return tables;
             using (FileStream file = File.OpenRead(file_path))
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < tables.Length; i++)
                 {
-                    Tables[i] = new DataGridView();
+                    tables[i] = new DataGridView();
                     List<byte> buffer = new List<byte>(byte.MaxValue);
                     byte[] bytes = new byte[4];
                     file.Read(bytes, 0, 4);
                     buffer.AddRange(bytes);
-                    Tables[i].ColumnCount = (int)bytes[0] + ((int)bytes[1] << 8) + ((int)bytes[2] << 16) + ((int)bytes[3] << 24);
+                    tables[i].ColumnCount = BitConverter.ToInt32(bytes, 0);
                     file.Read(bytes, 0, 4);
                     buffer.AddRange(bytes);
-                    Tables[i].RowCount = (int)bytes[0] + ((int)bytes[1] << 8) + ((int)bytes[2] << 16) + ((int)bytes[3] << 24);
-                    for (int y = 0; y < Tables[i].RowCount; y++)
+                    tables[i].RowCount = BitConverter.ToInt32(bytes, 0);
+                    for (int y = 0; y < tables[i].RowCount; y++)
                     {
-                        for (int x = 0; x < Tables[i].ColumnCount; x++)
+                        for (int x = 0; x < tables[i].ColumnCount; x++)
                         {
                             buffer = new List<byte>(byte.MaxValue);
                             bytes = new byte[2];
@@ -157,13 +157,25 @@ namespace OOPServerForm
                                     break;
                                 buffer.AddRange(bytes);
                             }
-                            Tables[i][x, y].Value = Encoding.Unicode.GetString(buffer.ToArray());
+                            tables[i][x, y].Value = Encoding.Unicode.GetString(buffer.ToArray());
                         }
                     }
                 }
             }
-            return Tables;
+            //tables[8] = MergeTables(tables[8], tables[9]);
+            //Array.Resize<DataGridView>(ref tables, tables.Length - 1);
+            return tables;
         }
+        //private static DataGridView MergeTables(DataGridView table1, DataGridView table2)
+        //{
+        //    int rowCountBefore = table1.RowCount;
+        //    int columnCountBefore = table1.ColumnCount;           
+        //    table1.RowCount += table2.RowCount;
+        //    for (int j = rowCountBefore; j < table1.RowCount; j++)
+        //        for (int i = 0; i < table1.ColumnCount; i++)
+        //            table1[i, j].Value = table2[i, j - rowCountBefore];
+        //    return table1;
+        //}
     }
     public class BranchManager
     {
@@ -177,7 +189,7 @@ namespace OOPServerForm
             TableType.Ordinary,
             TableType.ReverseOrdinary,
             TableType.ReverseExtended,
-            TableType.ReverseExtended };
+            TableType.ReverseExtended };// здесь пока не учитывается разделение последней таблицы
         public BranchManager(Branch[] branches)
         {
             this.branches = branches;
@@ -258,7 +270,7 @@ namespace OOPServerForm
         }
         public void FillTables(DataGridView[] Tables)// тест 
         {
-            for (int tableNum = 0; tableNum < Tables.Length - 2; tableNum++)
+            for (int tableNum = 0; tableNum < Tables.Length - 2; tableNum++)// БЕЗ последней таблицы и итоговой 
                 for (int branchNum = 0; branchNum < branches.Length; branchNum++)
                     for (var i = 1; i < Tables[tableNum].ColumnCount; i++)// колонки
                         for (var j = 0; j < branches[branchNum].Tables[tableNum].RowCount; j++)//строки

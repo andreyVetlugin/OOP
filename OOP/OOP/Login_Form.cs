@@ -15,6 +15,8 @@ namespace OOP
 {
     public partial class Login_Form : Form
     {
+        const string result_file_name = "result.dat";
+
         public Login_Form()
         {
             InitializeComponent();
@@ -37,10 +39,6 @@ namespace OOP
 
         private void Show_result_button_Click(object sender, EventArgs e)
         {
-            Result_Form result_Form = new Result_Form();
-            result_Form.ShowDialog();
-            return;
-
             IPEndPoint address = DataManager.ParseIp(Main_Form.ip_info_path);
             if (!DataManager.ConnectToServer(address))
             {
@@ -49,7 +47,11 @@ namespace OOP
                 return;
             }
             DataManager.SendRequest(DataManager.MessageType.GetResult, null);
-            DataManager.GetResponse("result.dat");
+            DataManager.GetResponse(result_file_name);
+
+            Result_Form result_Form = new Result_Form(result_file_name);
+            result_Form.ShowDialog();
+            return;
         }
     }
 }

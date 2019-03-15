@@ -26,7 +26,7 @@ namespace OOPServerForm
 
             Branch[] branches = new Branch[] {
                 new Branch(JustForTests.DeserializeToNewtables("tables0.dat")),
-                new Branch(JustForTests.DeserializeToNewtables("tables1.dat")),                
+                new Branch(JustForTests.DeserializeToNewtables("tables1.dat")),
             };
 
             BranchManager branchManager = new BranchManager(branches);
@@ -75,7 +75,9 @@ namespace OOPServerForm
             }
             for (int i = 1; i < parametrs_text.Length + 1; i++)
                 Tables[9].Rows.Add(i, parametrs_text[i - 1], "0", "0", "0", "0", "0", "0", "0");
-
+            double[] parameterCoefficients = { 1.5, 1.5, 1, 1, 1, 0.5, 0.5, 0.5, 0.5 };
+            for (int i = 0; i < parameterCoefficients.Length; i++)
+                Tables[9][2, i].Value = parameterCoefficients[i];
             Tables[9].Rows.Add("", "Сумма баллов с учетом веса", "", "0", "0", "0", "0", "0", "0");
             Tables[9].Rows.Add("", "Итоговое местов рейтинге", "", "0", "0", "0", "0", "0", "0");
         }
@@ -160,10 +162,10 @@ namespace OOPServerForm
                         }
                     }
                 }
-            }            
+            }
             tables[8] = MergeTables(tables[8], tables[9]);
             Array.Resize<DataGridView>(ref tables, tables.Length - 1);
-            tables[8].Columns.Insert(0, new DataGridViewColumn(tables[8][0,0]));            
+            tables[8].Columns.Insert(0, new DataGridViewColumn(tables[8][0, 0]));
             return tables;
         }
         private static DataGridView MergeTables(DataGridView table1, DataGridView table2)
@@ -173,17 +175,12 @@ namespace OOPServerForm
             table3.RowCount = table1.RowCount + table2.RowCount;
             for (var i = 0; i < table1.ColumnCount; i++)
                 for (var j = 0; j < table1.RowCount; j++)
-                    table3[i, j].Value = table1[i, j].Value;            
+                    table3[i, j].Value = table1[i, j].Value;
             var rowCount = table1.RowCount;
-            for (var i = 0; i <  table2.ColumnCount; i++)
+            for (var i = 0; i < table2.ColumnCount; i++)
                 for (var j = rowCount; j < rowCount + table2.RowCount; j++)
-                    table3[i, j].Value = table2[i, j-rowCount].Value;
+                    table3[i, j].Value = table2[i, j - rowCount].Value;
             return table3;
-        }
-        private static double GetCellValue(DataGridViewCell cell)
-        {
-            Double.TryParse(cell.Value.ToString(), out double value);
-            return value;
         }
     }
     public class BranchManager
@@ -206,7 +203,7 @@ namespace OOPServerForm
         public void CalcualateBranchesRating()
         {
             for (int i = 0; i < TableTypes.Length; i++)
-            {  
+            {
                 if ((int)TableTypes[i] == 4)
                     continue;
                 else if ((int)TableTypes[i] == 0 || (int)TableTypes[i] == 1)
@@ -285,9 +282,29 @@ namespace OOPServerForm
                         for (var j = 0; j < branches[branchNum].Tables[tableNum].RowCount; j++)//строки
                         {
                             if (((int)TableTypes[tableNum] == 0 || (int)TableTypes[tableNum] == 1) && i == 1)
-                                continue;                            
+                                continue;
                             Tables[tableNum][i, j + branchNum * branches[branchNum].Tables[tableNum].RowCount].Value = branches[branchNum].Tables[tableNum][i - 1, j].Value;
                         }
+            FillFinallTable(Tables[Tables.Length - 1]);
+        }
+        private void FillFinallTable(DataGridView table)
+        {
+            double[] ratingsSums = new double[branches.Length];
+            for (var i = 0; i < branches.Length; i++)
+            {
+                double summOfRatingScores = 0;
+                for (var j = 0; j < branches[i].Tables.Length; j++)
+                {
+                    var columnCount = branches[i].Tables[j].ColumnCount;
+                    table[3 + i, j].Value = branches[i].Tables[j][columnCount - 1, 0].Value;
+                    summOfRatingScores += GetCellValue(table[3 + i, j]) * GetCellValue(table[2, j]);
+                }
+                table[3 + i, branches[i].Tables.Length].Value = summOfRatingScores;
+                ratingsSums[i] = summOfRatingScores;
+            }
+            var disributionRating = GetDistributionRaiting(ratingsSums);
+            for (var i = 0; i < branches.Length; i++)
+                table[i+3, branches[i].Tables.Length + 1].Value = disributionRating[GetCellValue(table[i+3, branches[i].Tables.Length])];
         }
     }
     public struct Branch

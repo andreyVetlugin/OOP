@@ -51,7 +51,7 @@ namespace OOP
 
             Result_Form result_Form = new Result_Form(result_file_name);
             result_Form.ShowDialog();
-            return;
+            Close();
         }
     }
 }

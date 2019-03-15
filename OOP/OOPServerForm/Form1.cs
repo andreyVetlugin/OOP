@@ -163,6 +163,7 @@ namespace OOPServerForm
             tables[8].Columns.Insert(0, new DataGridViewColumn(tables[8][0, 0]));
             return tables;
         }
+
         private static DataGridView MergeTables(DataGridView table1, DataGridView table2)
         {
             var table3 = new DataGridView();

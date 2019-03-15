@@ -8,8 +8,9 @@ using System.Windows.Forms;
 namespace OOPServerForm
 {
     public class BranchManager
-    {
+    {    
         public Branch[] branches;
+
         private static TableType[] TableTypes = {
             TableType.ReverseExtended,
             TableType.NotFilled,
@@ -24,6 +25,7 @@ namespace OOPServerForm
         {
             this.branches = branches;
         }
+
         public void CalcualateBranchesRating()
         {
             for (int i = 0; i < TableTypes.Length; i++)
@@ -35,6 +37,7 @@ namespace OOPServerForm
                 CalculateFinallRating(i);
             }
         }
+
         private void CalculateFinallRating(int tableNumber)
         {
             int parameterColumn = branches[0].Tables[tableNumber].ColumnCount - 1;
@@ -46,6 +49,7 @@ namespace OOPServerForm
                 branch.Tables[tableNumber][parameterColumn + 1, 0].Value = distributionRaiting[paramValue];
             }
         }
+
         private void CalculateParametersRaiting(int tableNumber)
         {
             int parameterColumn = branches[0].Tables[tableNumber].ColumnCount - 1;
@@ -58,7 +62,7 @@ namespace OOPServerForm
             }
             for (var i = 0; i < branches[0].Tables[tableNumber].RowCount; i++)
             {
-                var distributionRaiting = GetDistributionRaiting(tableNumber, parameterColumn, i);
+                var distributionRaiting = GetDistributionRaiting(tableNumber, parameterColumn,true, i);
                 foreach (var branch in branches)
                 {
                     var paramValue = GetCellValue(branch.Tables[tableNumber][parameterColumn, i]);
@@ -70,23 +74,27 @@ namespace OOPServerForm
                 branch.Tables[tableNumber][parameterColumn + 2, 0].Value = summRatingForBranches[branch];
 
         }
+
         private double GetCellValue(DataGridViewCell cell)
         {
             Double.TryParse(cell.Value.ToString(), out double value);
             return value;
         }
-        private Dictionary<double, int> GetDistributionRaiting(int tableNumber, int parameterColumn, int parameterRow = 0)// какая
+
+        private Dictionary<double, int> GetDistributionRaiting(int tableNumber, int parameterColumn, bool reverseRaitingCheck = false, int parameterRow = 0)// какая
         {
             double[] possibleValues = new double[branches.Length];
             for (var j = 0; j < branches.Length; j++)
                 possibleValues[j] = GetCellValue(branches[j].Tables[tableNumber][parameterColumn, parameterRow]);
-            Array.Sort(possibleValues);
-            if ((int)TableTypes[tableNumber] % 2 == 1)
-                Array.Reverse(possibleValues);
-            return GetDistributionRaiting(possibleValues);
+            Array.Sort(possibleValues);            
+            return GetDistributionRaiting(possibleValues, reverseRaitingCheck && (int)TableTypes[tableNumber] % 2 == 1);
         }
-        private Dictionary<double, int> GetDistributionRaiting(double[] possibleValues)
-        {
+
+        private Dictionary<double, int> GetDistributionRaiting(double[] possibleValues,bool reverseRaiting = false)
+        {            
+            Array.Sort(possibleValues);
+            if (reverseRaiting)
+                Array.Reverse(possibleValues);
             Dictionary<double, int> distribution = new Dictionary<double, int>();
             for (var i = 0; i < possibleValues.Length; i++)
             {
@@ -98,6 +106,7 @@ namespace OOPServerForm
             }
             return distribution;
         }
+
         public void FillTables(DataGridView[] Tables)
         {
             for (int tableNum = 0; tableNum < Tables.Length - 1; tableNum++)
@@ -112,6 +121,7 @@ namespace OOPServerForm
                         }
             FillFinallTable(Tables[Tables.Length - 1]);
         }
+
         private void FillFinallTable(DataGridView table)
         {
             double[] ratingsSums = new double[branches.Length];
@@ -127,14 +137,16 @@ namespace OOPServerForm
                 table[3 + i, branches[i].Tables.Length].Value = summOfRatingScores;
                 ratingsSums[i] = summOfRatingScores;
             }
-            var disributionRating = GetDistributionRaiting(ratingsSums);
+            var disributionRating = GetDistributionRaiting(ratingsSums,true);
             for (var i = 0; i < branches.Length; i++)
                 table[i + 3, branches[i].Tables.Length + 1].Value = disributionRating[GetCellValue(table[i + 3, branches[i].Tables.Length])];
         }
+
     }
     public struct Branch
     {
         public DataGridView[] Tables;
+
         public Branch(DataGridView[] tables)
         {
             Tables = tables;

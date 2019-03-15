@@ -1,6 +1,6 @@
 ﻿namespace OOPServerForm
 {
-    partial class Form1
+    partial class Main_Form
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -121,6 +121,7 @@
             this.Column53 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column54 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label_end = new System.Windows.Forms.Label();
+            this.panel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.eighth_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seventh_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sixth_dataGridView)).BeginInit();
@@ -131,6 +132,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fifth_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ninth_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tenth_dataGridView)).BeginInit();
+            this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label9
@@ -166,7 +168,7 @@
             this.eighth_dataGridView.ReadOnly = true;
             this.eighth_dataGridView.RowHeadersVisible = false;
             this.eighth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.eighth_dataGridView.Size = new System.Drawing.Size(1151, 300);
+            this.eighth_dataGridView.Size = new System.Drawing.Size(1168, 300);
             this.eighth_dataGridView.TabIndex = 37;
             this.eighth_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DataGridView_CellFormatting);
             this.eighth_dataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DataGridView_CellPainting);
@@ -264,7 +266,7 @@
             this.seventh_dataGridView.ReadOnly = true;
             this.seventh_dataGridView.RowHeadersVisible = false;
             this.seventh_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.seventh_dataGridView.Size = new System.Drawing.Size(1151, 155);
+            this.seventh_dataGridView.Size = new System.Drawing.Size(1168, 155);
             this.seventh_dataGridView.TabIndex = 35;
             this.seventh_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Common_dataGridView_CellFormatting);
             // 
@@ -336,7 +338,7 @@
             this.sixth_dataGridView.ReadOnly = true;
             this.sixth_dataGridView.RowHeadersVisible = false;
             this.sixth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.sixth_dataGridView.Size = new System.Drawing.Size(1151, 155);
+            this.sixth_dataGridView.Size = new System.Drawing.Size(1168, 155);
             this.sixth_dataGridView.TabIndex = 33;
             this.sixth_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Common_dataGridView_CellFormatting);
             // 
@@ -397,7 +399,7 @@
             this.first_dataGridView.ReadOnly = true;
             this.first_dataGridView.RowHeadersVisible = false;
             this.first_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.first_dataGridView.Size = new System.Drawing.Size(1151, 696);
+            this.first_dataGridView.Size = new System.Drawing.Size(1168, 696);
             this.first_dataGridView.TabIndex = 22;
             this.first_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DataGridView_CellFormatting);
             this.first_dataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DataGridView_CellPainting);
@@ -486,7 +488,7 @@
             this.second_dataGridView.ReadOnly = true;
             this.second_dataGridView.RowHeadersVisible = false;
             this.second_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.second_dataGridView.Size = new System.Drawing.Size(1151, 155);
+            this.second_dataGridView.Size = new System.Drawing.Size(1168, 155);
             this.second_dataGridView.TabIndex = 23;
             this.second_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Common_dataGridView_CellFormatting);
             // 
@@ -550,7 +552,7 @@
             this.third_dataGridView.ReadOnly = true;
             this.third_dataGridView.RowHeadersVisible = false;
             this.third_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.third_dataGridView.Size = new System.Drawing.Size(1151, 300);
+            this.third_dataGridView.Size = new System.Drawing.Size(1168, 300);
             this.third_dataGridView.TabIndex = 26;
             this.third_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DataGridView_CellFormatting);
             this.third_dataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DataGridView_CellPainting);
@@ -658,12 +660,12 @@
             this.Column30,
             this.Column31});
             this.fourth_dataGridView.Enabled = false;
-            this.fourth_dataGridView.Location = new System.Drawing.Point(12, 1347);
+            this.fourth_dataGridView.Location = new System.Drawing.Point(12, 1346);
             this.fourth_dataGridView.Name = "fourth_dataGridView";
             this.fourth_dataGridView.ReadOnly = true;
             this.fourth_dataGridView.RowHeadersVisible = false;
             this.fourth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.fourth_dataGridView.Size = new System.Drawing.Size(1151, 300);
+            this.fourth_dataGridView.Size = new System.Drawing.Size(1168, 300);
             this.fourth_dataGridView.TabIndex = 29;
             this.fourth_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DataGridView_CellFormatting);
             this.fourth_dataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DataGridView_CellPainting);
@@ -787,12 +789,12 @@
             this.dataGridViewTextBoxColumn9,
             this.Column33});
             this.fifth_dataGridView.Enabled = false;
-            this.fifth_dataGridView.Location = new System.Drawing.Point(15, 1700);
+            this.fifth_dataGridView.Location = new System.Drawing.Point(12, 1700);
             this.fifth_dataGridView.Name = "fifth_dataGridView";
             this.fifth_dataGridView.ReadOnly = true;
             this.fifth_dataGridView.RowHeadersVisible = false;
             this.fifth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.fifth_dataGridView.Size = new System.Drawing.Size(1148, 155);
+            this.fifth_dataGridView.Size = new System.Drawing.Size(1168, 155);
             this.fifth_dataGridView.TabIndex = 31;
             this.fifth_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Common_dataGridView_CellFormatting);
             // 
@@ -875,7 +877,7 @@
             this.ninth_dataGridView.ReadOnly = true;
             this.ninth_dataGridView.RowHeadersVisible = false;
             this.ninth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.ninth_dataGridView.Size = new System.Drawing.Size(1148, 300);
+            this.ninth_dataGridView.Size = new System.Drawing.Size(1168, 300);
             this.ninth_dataGridView.TabIndex = 42;
             this.ninth_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DataGridView_CellFormatting);
             this.ninth_dataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DataGridView_CellPainting);
@@ -980,13 +982,13 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tenth_dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.tenth_dataGridView.Enabled = false;
-            this.tenth_dataGridView.Location = new System.Drawing.Point(12, 3101);
+            this.tenth_dataGridView.Location = new System.Drawing.Point(12, 3088);
             this.tenth_dataGridView.Name = "tenth_dataGridView";
             this.tenth_dataGridView.ReadOnly = true;
             this.tenth_dataGridView.RowHeadersVisible = false;
             this.tenth_dataGridView.RowTemplate.Height = 42;
             this.tenth_dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.tenth_dataGridView.Size = new System.Drawing.Size(1148, 498);
+            this.tenth_dataGridView.Size = new System.Drawing.Size(1168, 498);
             this.tenth_dataGridView.TabIndex = 43;
             this.tenth_dataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Common_dataGridView_CellFormatting);
             // 
@@ -1067,10 +1069,37 @@
             // label_end
             // 
             this.label_end.AutoSize = true;
-            this.label_end.Location = new System.Drawing.Point(12, 3927);
+            this.label_end.Location = new System.Drawing.Point(12, 3933);
             this.label_end.Name = "label_end";
             this.label_end.Size = new System.Drawing.Size(0, 13);
             this.label_end.TabIndex = 44;
+            // 
+            // panel
+            // 
+            this.panel.Controls.Add(this.tenth_dataGridView);
+            this.panel.Controls.Add(this.ninth_dataGridView);
+            this.panel.Controls.Add(this.label1);
+            this.panel.Controls.Add(this.label9);
+            this.panel.Controls.Add(this.first_dataGridView);
+            this.panel.Controls.Add(this.eighth_dataGridView);
+            this.panel.Controls.Add(this.label2);
+            this.panel.Controls.Add(this.label8);
+            this.panel.Controls.Add(this.second_dataGridView);
+            this.panel.Controls.Add(this.seventh_dataGridView);
+            this.panel.Controls.Add(this.label3);
+            this.panel.Controls.Add(this.label7);
+            this.panel.Controls.Add(this.third_dataGridView);
+            this.panel.Controls.Add(this.sixth_dataGridView);
+            this.panel.Controls.Add(this.label4);
+            this.panel.Controls.Add(this.label6);
+            this.panel.Controls.Add(this.fourth_dataGridView);
+            this.panel.Controls.Add(this.fifth_dataGridView);
+            this.panel.Controls.Add(this.label5);
+            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel.Location = new System.Drawing.Point(0, 0);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(1192, 3946);
+            this.panel.TabIndex = 45;
             // 
             // Form1
             // 
@@ -1079,30 +1108,13 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1209, 873);
             this.Controls.Add(this.label_end);
-            this.Controls.Add(this.tenth_dataGridView);
-            this.Controls.Add(this.ninth_dataGridView);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.eighth_dataGridView);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.seventh_dataGridView);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.sixth_dataGridView);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.first_dataGridView);
-            this.Controls.Add(this.second_dataGridView);
-            this.Controls.Add(this.third_dataGridView);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.fourth_dataGridView);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.fifth_dataGridView);
+            this.Controls.Add(this.panel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Результаты";
+            this.Shown += new System.EventHandler(this.Main_Form_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.eighth_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.seventh_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sixth_dataGridView)).EndInit();
@@ -1113,6 +1125,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.fifth_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ninth_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tenth_dataGridView)).EndInit();
+            this.panel.ResumeLayout(false);
+            this.panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1209,6 +1223,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column53;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column54;
         private System.Windows.Forms.Label label_end;
+        private System.Windows.Forms.Panel panel;
     }
 }
 

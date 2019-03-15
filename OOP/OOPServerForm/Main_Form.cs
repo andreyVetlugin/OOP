@@ -12,9 +12,9 @@ using System.Windows.Forms;
 namespace OOPServerForm
 {
     public enum TableType { Extended, ReverseExtended, Ordinary, ReverseOrdinary, NotFilled }
-    public partial class Form1 : Form
+    public partial class Main_Form : Form
     {
-        public Form1()
+        public Main_Form()
         {
             InitializeComponent();
 
@@ -58,7 +58,7 @@ namespace OOPServerForm
             }
 
             string[] parametrs_text = new string[9];
-            foreach (Control control in Controls)
+            foreach (Control control in panel.Controls)
             {
                 if (control is Label)
                 {
@@ -121,6 +121,14 @@ namespace OOPServerForm
                 else
                     e.CellStyle.BackColor = Color.MistyRose;
             }
+        }
+
+        private void Main_Form_Shown(object sender, EventArgs e)
+        {
+            Bitmap bmp = new Bitmap(panel.Width, panel.Height);
+            Rectangle bounds = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            panel.DrawToBitmap(bmp, bounds);
+            bmp.Save("result.bmp");
         }
     }
     public class DataManager //соединить с тем, что уже есть в OOPSERVER

@@ -37,6 +37,10 @@ namespace OOP
 
         private void Show_result_button_Click(object sender, EventArgs e)
         {
+            Result_Form result_Form = new Result_Form();
+            result_Form.ShowDialog();
+            return;
+
             IPEndPoint address = DataManager.ParseIp(Main_Form.ip_info_path);
             if (!DataManager.ConnectToServer(address))
             {

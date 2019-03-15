@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace OOPServer
 {
@@ -15,8 +16,9 @@ namespace OOPServer
         const string default_ip = "127.0.0.1";
         const int default_port = 3344;
         const string port_info_path = "port.ini";
+        const string result_file_name = "result.dat";
 
-        public enum MessageType { GetResult, SendFile, HttpRequest = 542393671 };
+        public enum MessageType { GetResult, SendFile };
 
         static void Main(string[] args)
         {
@@ -47,21 +49,20 @@ namespace OOPServer
                                 data.Add(buffer[i]);
                         } while (stream.DataAvailable);
 
-                        File.WriteAllBytes("branch" + branch_id + ".dat", data.ToArray());
-                        Console.WriteLine("File branch" + branch_id + ".dat was received");
+                        string file_name = "branch" + branch_id + ".dat";
+                        File.WriteAllBytes(file_name, data.ToArray());
+                        Console.WriteLine("File " + file_name + " was received");
                     }
                     else if (messageType == MessageType.GetResult)
                     {
-                        //Код создания итоговой таблицы из имеющихся данных
-                        //Итоговая таблица - result.dat
-                        byte[] file = File.ReadAllBytes("result.dat");
+                        string[] files = Directory.GetFiles(Directory.GetCurrentDirectory(), "branch?.dat");
+                        Main_Form main_form = new Main_Form(files);
+                        main_form.ShowDialog();
+                        byte[] file = File.ReadAllBytes(result_file_name);
                         stream.Write(file, 0, file.Length);
                         Thread.Sleep(200);
                         Console.WriteLine("File result.dat was sent");
-                    }
-                    else if (messageType == MessageType.HttpRequest)
-                    {
-                        Console.WriteLine("Http Request");
+                        File.Delete(result_file_name);
                     }
                     else
                     {

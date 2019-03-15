@@ -63,6 +63,7 @@
             this.MinimizeBox = false;
             this.Name = "Result_Form";
             this.Text = "Результат";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Result_Form_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

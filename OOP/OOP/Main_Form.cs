@@ -64,7 +64,8 @@ namespace OOP
 
         private void Main_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            DataManager.Serialize(Tables, tables_data_name + DataManager.BranchIndex + ".dat");
+            if (DataManager.BranchIndex >= 0)
+                DataManager.Serialize(Tables, tables_data_name + DataManager.BranchIndex + ".dat");
         }
     }
 }

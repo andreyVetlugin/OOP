@@ -26,8 +26,7 @@ namespace OOPServerForm
 
             Branch[] branches = new Branch[] {
                 new Branch(JustForTests.DeserializeToNewtables("tables0.dat")),
-                new Branch(JustForTests.DeserializeToNewtables("tables1.dat")),
-                //new Branch(JustForTests.DeserializeToNewtables("tables2.dat"))
+                new Branch(JustForTests.DeserializeToNewtables("tables1.dat")),                
             };
 
             BranchManager branchManager = new BranchManager(branches);
@@ -161,21 +160,31 @@ namespace OOPServerForm
                         }
                     }
                 }
-            }
-            //tables[8] = MergeTables(tables[8], tables[9]);
-            //Array.Resize<DataGridView>(ref tables, tables.Length - 1);
+            }            
+            tables[8] = MergeTables(tables[8], tables[9]);
+            Array.Resize<DataGridView>(ref tables, tables.Length - 1);
+            tables[8].Columns.Insert(0, new DataGridViewColumn(tables[8][0,0]));            
             return tables;
         }
-        //private static DataGridView MergeTables(DataGridView table1, DataGridView table2)
-        //{
-        //    int rowCountBefore = table1.RowCount;
-        //    int columnCountBefore = table1.ColumnCount;           
-        //    table1.RowCount += table2.RowCount;
-        //    for (int j = rowCountBefore; j < table1.RowCount; j++)
-        //        for (int i = 0; i < table1.ColumnCount; i++)
-        //            table1[i, j].Value = table2[i, j - rowCountBefore];
-        //    return table1;
-        //}
+        private static DataGridView MergeTables(DataGridView table1, DataGridView table2)
+        {
+            var table3 = new DataGridView();
+            table3.ColumnCount = table1.ColumnCount;
+            table3.RowCount = table1.RowCount + table2.RowCount;
+            for (var i = 0; i < table1.ColumnCount; i++)
+                for (var j = 0; j < table1.RowCount; j++)
+                    table3[i, j].Value = table1[i, j].Value;            
+            var rowCount = table1.RowCount;
+            for (var i = 0; i <  table2.ColumnCount; i++)
+                for (var j = rowCount; j < rowCount + table2.RowCount; j++)
+                    table3[i, j].Value = table2[i, j-rowCount].Value;
+            return table3;
+        }
+        private static double GetCellValue(DataGridViewCell cell)
+        {
+            Double.TryParse(cell.Value.ToString(), out double value);
+            return value;
+        }
     }
     public class BranchManager
     {
@@ -197,7 +206,7 @@ namespace OOPServerForm
         public void CalcualateBranchesRating()
         {
             for (int i = 0; i < TableTypes.Length; i++)
-            {
+            {  
                 if ((int)TableTypes[i] == 4)
                     continue;
                 else if ((int)TableTypes[i] == 0 || (int)TableTypes[i] == 1)
@@ -270,13 +279,13 @@ namespace OOPServerForm
         }
         public void FillTables(DataGridView[] Tables)// тест 
         {
-            for (int tableNum = 0; tableNum < Tables.Length - 2; tableNum++)// БЕЗ последней таблицы и итоговой 
+            for (int tableNum = 0; tableNum < Tables.Length - 1; tableNum++)// БЕЗ последней таблицы и итоговой 
                 for (int branchNum = 0; branchNum < branches.Length; branchNum++)
                     for (var i = 1; i < Tables[tableNum].ColumnCount; i++)// колонки
                         for (var j = 0; j < branches[branchNum].Tables[tableNum].RowCount; j++)//строки
                         {
                             if (((int)TableTypes[tableNum] == 0 || (int)TableTypes[tableNum] == 1) && i == 1)
-                                continue;
+                                continue;                            
                             Tables[tableNum][i, j + branchNum * branches[branchNum].Tables[tableNum].RowCount].Value = branches[branchNum].Tables[tableNum][i - 1, j].Value;
                         }
         }

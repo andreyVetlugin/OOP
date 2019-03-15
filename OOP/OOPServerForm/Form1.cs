@@ -25,18 +25,15 @@ namespace OOPServerForm
                 tenth_dataGridView };
 
             Branch[] branches = new Branch[] {
-                new Branch(JustForTests.DeserializeToNewtables("tables0.dat")),
-                new Branch(JustForTests.DeserializeToNewtables("tables1.dat")),
+                new Branch(DataManager.DeserializeToNewtables("tables0.dat")),
+                new Branch(DataManager.DeserializeToNewtables("tables1.dat")),
             };
 
             BranchManager branchManager = new BranchManager(branches);
             branchManager.CalcualateBranchesRating();
-
             InitializeTables(Tables);
-
             branchManager.FillTables(Tables);
         }
-
         public void InitializeTables(DataGridView[] Tables)
         {
             for (int i = 1; i < 7; i++)
@@ -126,7 +123,7 @@ namespace OOPServerForm
             }
         }
     }
-    public class JustForTests
+    public class DataManager //соединить с тем, что уже есть в OOPSERVER
     {
         public static DataGridView[] DeserializeToNewtables(string file_path)
         {
@@ -139,13 +136,11 @@ namespace OOPServerForm
                 {
                     tables[i] = new DataGridView();
                     List<byte> buffer = new List<byte>(byte.MaxValue);
-                    byte[] bytes = new byte[4];
-                    file.Read(bytes, 0, 4);
+                    byte[] bytes = new byte[8];
+                    file.Read(bytes, 0, 8);
                     buffer.AddRange(bytes);
                     tables[i].ColumnCount = BitConverter.ToInt32(bytes, 0);
-                    file.Read(bytes, 0, 4);
-                    buffer.AddRange(bytes);
-                    tables[i].RowCount = BitConverter.ToInt32(bytes, 0);
+                    tables[i].RowCount = BitConverter.ToInt32(bytes, 4);
                     for (int y = 0; y < tables[i].RowCount; y++)
                     {
                         for (int x = 0; x < tables[i].ColumnCount; x++)
@@ -195,7 +190,7 @@ namespace OOPServerForm
             TableType.Ordinary,
             TableType.ReverseOrdinary,
             TableType.ReverseExtended,
-            TableType.ReverseExtended };// здесь пока не учитывается разделение последней таблицы
+            TableType.ReverseExtended };
         public BranchManager(Branch[] branches)
         {
             this.branches = branches;
@@ -218,11 +213,11 @@ namespace OOPServerForm
             foreach (var branch in branches)
             {
                 var paramValue = GetCellValue(branch.Tables[tableNumber][parameterColumn, 0]);
-                branch.Tables[tableNumber].ColumnCount++;// можно просто инкременить count?
+                branch.Tables[tableNumber].ColumnCount++;
                 branch.Tables[tableNumber][parameterColumn + 1, 0].Value = distributionRaiting[paramValue];
             }
         }
-        private void CalculateParametersRaiting(int tableNumber)// table number от 0
+        private void CalculateParametersRaiting(int tableNumber)
         {
             int parameterColumn = branches[0].Tables[tableNumber].ColumnCount - 1;
             Dictionary<Branch, int> summRatingForBranches = new Dictionary<Branch, int>();
@@ -232,7 +227,7 @@ namespace OOPServerForm
                 summRatingForBranches[branch] = 0;
                 branch.Tables[tableNumber].ColumnCount += 2; // место под балл параметра и балл суммарный
             }
-            for (var i = 0; i < branches[0].Tables[tableNumber].RowCount; i++) //строки с различными показателями // параметры
+            for (var i = 0; i < branches[0].Tables[tableNumber].RowCount; i++)
             {
                 var distributionRaiting = GetDistributionRaiting(tableNumber, parameterColumn, i);
                 foreach (var branch in branches)
@@ -245,7 +240,7 @@ namespace OOPServerForm
             foreach (var branch in branches)
                 branch.Tables[tableNumber][parameterColumn + 2, 0].Value = summRatingForBranches[branch];
 
-        }
+        }        
         private double GetCellValue(DataGridViewCell cell)
         {
             Double.TryParse(cell.Value.ToString(), out double value);
@@ -274,16 +269,17 @@ namespace OOPServerForm
             }
             return distribution;
         }
-        public void FillTables(DataGridView[] Tables)// тест 
+        public void FillTables(DataGridView[] Tables)
         {
-            for (int tableNum = 0; tableNum < Tables.Length - 1; tableNum++)// БЕЗ последней таблицы и итоговой 
+            for (int tableNum = 0; tableNum < Tables.Length - 1; tableNum++)
                 for (int branchNum = 0; branchNum < branches.Length; branchNum++)
-                    for (var i = 1; i < Tables[tableNum].ColumnCount; i++)// колонки
-                        for (var j = 0; j < branches[branchNum].Tables[tableNum].RowCount; j++)//строки
+                    for (var i = 1; i < Tables[tableNum].ColumnCount; i++)
+                        for (var j = 0; j < branches[branchNum].Tables[tableNum].RowCount; j++)
                         {
                             if (((int)TableTypes[tableNum] == 0 || (int)TableTypes[tableNum] == 1) && i == 1)
                                 continue;
-                            Tables[tableNum][i, j + branchNum * branches[branchNum].Tables[tableNum].RowCount].Value = branches[branchNum].Tables[tableNum][i - 1, j].Value;
+                            var rowIndex = j + branchNum * branches[branchNum].Tables[tableNum].RowCount;
+                            Tables[tableNum][i, rowIndex].Value = branches[branchNum].Tables[tableNum][i - 1, j].Value;
                         }
             FillFinallTable(Tables[Tables.Length - 1]);
         }
@@ -304,12 +300,12 @@ namespace OOPServerForm
             }
             var disributionRating = GetDistributionRaiting(ratingsSums);
             for (var i = 0; i < branches.Length; i++)
-                table[i+3, branches[i].Tables.Length + 1].Value = disributionRating[GetCellValue(table[i+3, branches[i].Tables.Length])];
+                table[i + 3, branches[i].Tables.Length + 1].Value = disributionRating[GetCellValue(table[i + 3, branches[i].Tables.Length])];
         }
     }
     public struct Branch
     {
-        public readonly DataGridView[] Tables;
+        public DataGridView[] Tables;
         public Branch(DataGridView[] tables)
         {
             Tables = tables;

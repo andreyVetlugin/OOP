@@ -20,7 +20,8 @@ namespace OOP
         private static TcpClient client;
         public static string BranchName;
         public static int BranchIndex = -1;
-        
+        public static int QuarterIndex = -1;
+
         public static bool ConnectToServer(IPEndPoint address)
         {
             client = new TcpClient();
@@ -40,9 +41,12 @@ namespace OOP
             byte[] type = BitConverter.GetBytes((int)messageType);
             stream.Write(type, 0, type.Length);
 
+            byte[] index = BitConverter.GetBytes(QuarterIndex);
+            stream.Write(index, 0, index.Length);
+
             if (messageType == MessageType.SendFile)
             {
-                byte[] index = BitConverter.GetBytes(BranchIndex);
+                index = BitConverter.GetBytes(BranchIndex);
                 stream.Write(index, 0, index.Length);
 
                 byte[] file = File.ReadAllBytes(file_path);

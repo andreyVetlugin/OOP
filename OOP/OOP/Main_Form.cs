@@ -11,12 +11,14 @@ namespace OOP
 {
     public partial class Main_Form : Form
     {
-        const string tables_data_name = "tables";
         public const string ip_info_path = "ip.ini";
         public const string branches_info_path = "branches.inf";
 
         private TableManager tableManager;
         private DataGridView[] Tables;
+
+        private string TableFileName {
+            get => "t" + DataManager.BranchIndex + "q" + DataManager.QuarterIndex + ".dat"; }
 
         public Main_Form()
         {
@@ -39,33 +41,33 @@ namespace OOP
 
         private void Save_send_button_Click(object sender, EventArgs e)
         {
-            DataManager.Serialize(Tables, tables_data_name + DataManager.BranchIndex + ".dat");
+            DataManager.Serialize(Tables, TableFileName);
 
             IPEndPoint address = DataManager.ParseIp(ip_info_path);
             if (!DataManager.ConnectToServer(address))
             {
-                MessageBox.Show(this, "Не удалось подключиться к серверу\n\rПопробуйте позже",
+                MessageBox.Show(this, "Не удалось подключиться к серверу\r\nПопробуйте позже",
                     "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            DataManager.SendRequest(DataManager.MessageType.SendFile, tables_data_name + DataManager.BranchIndex + ".dat");
+            DataManager.SendRequest(DataManager.MessageType.SendFile, TableFileName);
         }
 
         private void Main_Form_Load(object sender, EventArgs e)
         {
             Login_Form login_Form = new Login_Form();
             login_Form.ShowDialog(this);
-            if (DataManager.BranchIndex < 0)
+            if (DataManager.BranchIndex < 0 || DataManager.QuarterIndex < 0)
                 Close();
             
-            Text += ": Данные " + DataManager.BranchName;
-            DataManager.Deserialize(Tables, tables_data_name + DataManager.BranchIndex + ".dat");
+            Text += ": Данные (" + DataManager.BranchName + ") за " + (DataManager.QuarterIndex + 1) + " квартал";
+            DataManager.Deserialize(Tables, TableFileName);
         }
 
         private void Main_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (DataManager.BranchIndex >= 0)
-                DataManager.Serialize(Tables, tables_data_name + DataManager.BranchIndex + ".dat");
+            if (DataManager.BranchIndex >= 0 && DataManager.QuarterIndex >= 0)
+                DataManager.Serialize(Tables, TableFileName);
         }
     }
 }

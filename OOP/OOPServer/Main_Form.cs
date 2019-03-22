@@ -131,7 +131,7 @@ namespace OOPServer
             Close();
         }
     }
-    public class DataManager //соединить с тем, что уже есть в OOPSERVER
+    public class DataManager 
     {
         public static DataGridView[] DeserializeToNewtables(string file_path)
         {
@@ -166,12 +166,16 @@ namespace OOPServer
                     }
                 }
             }
+            return StandardizeTables(tables);
+        }
+
+        private static DataGridView[] StandardizeTables(DataGridView[] tables)
+        {
             tables[8] = MergeTables(tables[8], tables[9]);
             Array.Resize<DataGridView>(ref tables, tables.Length - 1);
             tables[8].Columns.Insert(0, new DataGridViewColumn(tables[8][0, 0]));
             return tables;
         }
-
         private static DataGridView MergeTables(DataGridView table1, DataGridView table2)
         {
             var table3 = new DataGridView();

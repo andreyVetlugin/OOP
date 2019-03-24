@@ -33,7 +33,7 @@ namespace OOPServer
             InitializeTables(Tables);
             branchManager.FillTables(Tables);
         }
-        public void InitializeTables(DataGridView[] Tables)
+        private void InitializeTables(DataGridView[] Tables)
         {
             for (int i = 1; i < 7; i++)
             {
@@ -124,11 +124,12 @@ namespace OOPServer
 
         private void Main_Form_Shown(object sender, EventArgs e)
         {
+            //this.Activate();
             Bitmap bmp = new Bitmap(panel.Width, panel.Height);
             Rectangle bounds = new Rectangle(0, 0, bmp.Width, bmp.Height);
             panel.DrawToBitmap(bmp, bounds);
             bmp.Save("result.dat", System.Drawing.Imaging.ImageFormat.Png);
-            Close();
+            //Close();
         }
     }
     public class DataManager 

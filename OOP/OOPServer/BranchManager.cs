@@ -142,6 +142,15 @@ namespace OOPServer
                 table[i + 3, branches[i].Tables.Length + 1].Value = disributionRating[GetCellValue(table[i + 3, branches[i].Tables.Length])];
         }
 
+        public void FillAnnualTables(DataGridView[,] Branches)
+        {
+
+        }
+
+        public void FillNewResult(DataGridCell[] parametersCells, DataGridCell resultCell)// передавать функцию или проверять внутри что делать с параметрами
+        {// или так же сделать getFillers?
+
+        }
     }
     public struct Branch
     {

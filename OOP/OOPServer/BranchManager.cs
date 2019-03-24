@@ -50,7 +50,7 @@ namespace OOPServer
             }
         }
 
-        private void CalculateParametersRaiting(int tableNumber)
+        private void CalculateParametersRaiting(int tableNumber)//это не будет норм работать
         {
             int parameterColumn = branches[0].Tables[tableNumber].ColumnCount - 1;
             Dictionary<Branch, int> summRatingForBranches = new Dictionary<Branch, int>();
@@ -142,23 +142,111 @@ namespace OOPServer
                 table[i + 3, branches[i].Tables.Length + 1].Value = disributionRating[GetCellValue(table[i + 3, branches[i].Tables.Length])];
         }
 
-        public void FillAnnualTables(DataGridView[,] Branches)
-        {
 
+
+        public void FillAnnualTables(Branch[][] branches, DataGridView[] tables)// первое измерение - количество реальных филиалов, второе - кваратл (т.е.[6][4] )
+        {            
+            for (var i = 0; i < branches.Length; i++)
+                this.branches[i]= Branch.GetSumTables(branches[i]);
+            FillNewResults(tables);
+            //после этого вызов того что и для обычной процедуры расчета рейтинга
         }
 
-        public void FillNewResult(DataGridCell[] parametersCells, DataGridCell resultCell)// передавать функцию или проверять внутри что делать с параметрами
+        private void FillNewResults(DataGridView[] tables)// передавать функцию или проверять внутри что делать с параметрами
         {// или так же сделать getFillers?
+            double[] parameters;
+            for (int i = 0; i < tables[0].RowCount; i++)
+            {
+                parameters = new double[] { GetCellValue(tables[0][1, i]), GetCellValue(tables[0][2, i]) };
+                tables[0][3, i].Value = parameters[0] * 365 / parameters[1];
+            }
 
+            for (int i = 0; i < tables[1].RowCount; i++)
+            {
+                parameters = new double[] { GetCellValue(tables[1][0, i]), GetCellValue(tables[1][1, i]) };
+                tables[1][2, i].Value = parameters[0] / parameters[1] * 100;
+                var cellValue = (double)tables[1][2, i].Value;
+                if (cellValue >= 120)
+                    tables[1][3, i].Value = 6;
+                else if (cellValue >= 110)
+                    tables[1][3, i].Value = 5;
+                else if (cellValue >= 100)
+                    tables[1][3, i].Value = 4;
+                else if (cellValue >= 95)
+                    tables[1][3, i].Value = 3;
+                else if (cellValue >= 90)
+                    tables[1][3, i].Value = 2;
+                else
+                    tables[1][3, i].Value = 1;
+            }
+
+
+            for (var i = 0; i < tables[2].RowCount; i++)
+            {
+                parameters = new double[] { GetCellValue(tables[2][1, i]), GetCellValue(tables[2][2, i]) };
+                tables[2][3, i].Value = parameters[0] / parameters[1];
+            }
+
+            for (var i = 0; i < tables[3].RowCount; i++)
+            {
+                parameters = new double[] { GetCellValue(tables[3][1, i]), GetCellValue(tables[3][2, i]), GetCellValue(tables[3][3, i]) };
+                tables[3][4, i].Value = parameters[0] / parameters[1] * parameters[2] * 100;
+            }
+            //tables[4][0, 0].Value = tables[3][2, 0].Value;// ???
+            //tables[4][1, 0].Value = tables[3][2, 1].Value;//   ????        
+
+            for (var i = 0; i < tables[4].RowCount; i++)
+            {
+                parameters= new double[]{ GetCellValue(tables[4][0, i]), GetCellValue(tables[4][1, i]), GetCellValue(tables[4][3, i])};                
+                if (parameters[2] > 0)
+                    tables[4][4, i].Value = (parameters[0] + parameters[1]) / parameters[2];
+            }
+
+            for (var i = 0; i < tables[5].RowCount; i++)
+            {
+                // !!!здесь навреное в заголовке таблицы убрать полугодие  и просто суммировать
+            }
+
+            for (var i = 0; i < tables[6].RowCount; i++)
+            {
+                parameters = new double[]{GetCellValue(tables[6][0, i]), GetCellValue(tables[6][1, i])};                
+                tables[6][2, i].Value = parameters[0] / parameters[1];
+            }
+
+            for (int i = 0; i < tables[7].Rows.Count; i++)
+            {
+                parameters = new double[] {GetCellValue(tables[7][1, i]), GetCellValue(tables[7][2, i])};                
+                tables[7][3, i].Value = parameters[0] / parameters[1];
+            }
+
+            for (int i = 0; i < tables[8].Rows.Count; i++)
+            {
+                parameters =new double[] {GetCellValue(tables[8][0, i]),GetCellValue(tables[8][1, i])};               
+                tables[8][2, 0].Value = parameters[0] / parameters[1] * 100;
+            }
         }
     }
-    public struct Branch
+    public class Branch
     {
         public DataGridView[] Tables;
 
         public Branch(DataGridView[] tables)
         {
             Tables = tables;
+        }
+
+        static public Branch GetSumTables(Branch[] branches)
+        {
+            for (var branchN = 1; branchN < branches.Length; branchN++)
+                for (var tableN = 0; tableN < branches[0].Tables.Length; tableN++)
+                    for (var i = 0; i < branches[0].Tables[tableN].RowCount; i++)
+                        for (var j = 0; j < branches[0].Tables[tableN].ColumnCount; j++)
+                        {
+                            var currentCell = branches[0].Tables[tableN][j, i];
+                            if (double.TryParse(currentCell.Value.ToString(), out double param))
+                                currentCell.Value = (double)branches[branchN].Tables[tableN][j, i].Value + (double)currentCell.Value;
+                        }
+            return branches[0];
         }
     }
 }

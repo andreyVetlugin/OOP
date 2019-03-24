@@ -129,7 +129,7 @@ namespace OOPServer
             Rectangle bounds = new Rectangle(0, 0, bmp.Width, bmp.Height);
             panel.DrawToBitmap(bmp, bounds);
             bmp.Save("result.dat", System.Drawing.Imaging.ImageFormat.Png);
-            //Close();
+            Close();
         }
     }
     public class DataManager 
